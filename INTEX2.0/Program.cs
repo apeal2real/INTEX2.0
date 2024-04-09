@@ -1,6 +1,7 @@
 using INTEX2._0.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -13,6 +14,7 @@ services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
 });
 
 // Add services to the container.
+var connectionString2 = builder.Configuration.GetConnectionString("MyDatabaseConnection");
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
