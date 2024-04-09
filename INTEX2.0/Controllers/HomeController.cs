@@ -31,7 +31,8 @@ namespace INTEX2._0.Controllers
         {
             return View();
         }
-        public IActionResult Cart()
+        //[Authorize(Roles ="User")]
+        public IActionResult Cart() 
         {
             return View();
         }
