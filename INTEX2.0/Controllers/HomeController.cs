@@ -16,7 +16,8 @@ namespace INTEX2._0.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var products = _repo.Products.ToList();
+            return View(products);
         }
         public IActionResult Login()
         {
