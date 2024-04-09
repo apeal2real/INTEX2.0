@@ -1,7 +1,7 @@
 /* --------- NAV BAR --------- */
 .nav_logo {
-    width: 31rem;
-    height: 14.75rem;
+    width: 85%;
+    height: auto;
 }
 
 a:hover {
