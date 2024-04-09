@@ -32,15 +32,36 @@ body {
 /* ------- BUTTONS ------ */
 .main_btn {
   border-radius: 3.3125rem;
+  border-color: #00B207;
+  background: #00B207;
+}
+
+.main_btn:hover {
+  border-radius: 3.3125rem;
+  border-color: #00B207;
   background: #00B207;
 }
 
 .sub_btn {
   border-radius: 3.3125rem;
+  border-color: #55A5AF;
+  background: #55A5AF;
+}
+
+.sub_btn:hover {
+  border-radius: 3.3125rem;
+  border-color: #55A5AF;
   background: #55A5AF;
 }
 
 .warning_btn {
   border-radius: 3.3125rem;
+  border-color: #FD6F6F;
+  background: #FD6F6F;
+}
+
+.warning_btn:hover {
+  border-radius: 3.3125rem;
+  border-color: #FD6F6F;
   background: #FD6F6F;
 }
