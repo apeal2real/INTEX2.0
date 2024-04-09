@@ -23,7 +23,7 @@ public partial class IntexContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<Products> Products { get; set; }
 
     public virtual DbSet<ProductsCategory> ProductsCategories { get; set; }
 
@@ -83,7 +83,7 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.TypeOfTransaction).HasColumnName("type_of_transaction");
         });
 
-        modelBuilder.Entity<Product>(entity =>
+        modelBuilder.Entity<Products>(entity =>
         {
             entity.HasNoKey();
 

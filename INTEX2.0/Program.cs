@@ -32,6 +32,8 @@ public class Program
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddControllersWithViews();
 
+        builder.Services.AddScoped<IIntexRepository, EFIntexRepository>();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

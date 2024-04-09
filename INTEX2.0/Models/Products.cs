@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace INTEX2._0.Models;
 
-public partial class Product
+public partial class Products
 {
     public int? ProductIdPk { get; set; }
 
