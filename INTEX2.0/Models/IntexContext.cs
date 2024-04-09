@@ -99,21 +99,21 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.Year).HasColumnName("year");
         });
 
-        modelBuilder.Entity<ProductsCategory>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("Products_Categories");
-
-            entity.Property(e => e.CategoryIdPkFk).HasColumnName("category_ID(PK/FK)");
-            entity.Property(e => e.Field3).HasColumnName("field3");
-            entity.Property(e => e.Field4).HasColumnName("field4");
-            entity.Property(e => e.Field5).HasColumnName("field5");
-            entity.Property(e => e.Field6).HasColumnName("field6");
-            entity.Property(e => e.Field7).HasColumnName("field7");
-            entity.Property(e => e.Field8).HasColumnName("field8");
-            entity.Property(e => e.ProductIdPkFk).HasColumnName("product_ID(PK/FK)");
-        });
+        // modelBuilder.Entity<ProductsCategory>(entity =>
+        // {
+        //     entity
+        //         .HasNoKey()
+        //         .ToTable("Products_Categories");
+        //
+        //     entity.Property(e => e.CategoryIdPkFk).HasColumnName("category_ID(PK/FK)");
+        //     entity.Property(e => e.Field3).HasColumnName("field3");
+        //     entity.Property(e => e.Field4).HasColumnName("field4");
+        //     entity.Property(e => e.Field5).HasColumnName("field5");
+        //     entity.Property(e => e.Field6).HasColumnName("field6");
+        //     entity.Property(e => e.Field7).HasColumnName("field7");
+        //     entity.Property(e => e.Field8).HasColumnName("field8");
+        //     entity.Property(e => e.ProductIdPkFk).HasColumnName("product_ID(PK/FK)");
+        // });
 
         OnModelCreatingPartial(modelBuilder);
     }

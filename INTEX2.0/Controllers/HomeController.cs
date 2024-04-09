@@ -18,13 +18,7 @@ namespace INTEX2._0.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        [Authorize]
-        public IActionResult Secrets()
+        public IActionResult Login()
         {
             return View();
         }
@@ -32,11 +26,25 @@ namespace INTEX2._0.Controllers
         {
             return View();
         }
+
+        public IActionResult Product()
+        {
+            return View();
+        }
+        public IActionResult Cart()
+        {
+            return View();
+        }
         public IActionResult About()
         {
             return View();
         }
-        public IActionResult Login()
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        [Authorize]
+        public IActionResult Secrets()
         {
             return View();
         }
