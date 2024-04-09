@@ -30,4 +30,9 @@
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Customer\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Customer\_ViewStart.cshtml" />
+  </ItemGroup>
+
 </Project>
