@@ -4,8 +4,8 @@
     height: auto;
 }
 
-a:hover {
-    color: white;
+a {
+    text-decoration: none;
 }
 
 /* --------- HOME PAGE --------- */
@@ -180,6 +180,12 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    border-radius: 0.5rem;
+    border: 1px solid #E6E6E6;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 2em;
+    margin-top: 1em;
 }
 
 .filter_heading {
@@ -189,6 +195,7 @@ a:hover {
     font-style: normal;
     font-weight: 500;
     line-height: 150%; /* 1.875rem */
+    margin-top: 1em;
 }
 .shop_text {
     color: #1A1A1A;
@@ -222,7 +229,7 @@ a:hover {
 
 .search_bar {
     display: flex;
-    padding: 0.75rem 1.125rem 0.75rem 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
     align-items: center;
     gap: 0.5rem;
     border-radius: 0.5rem;
@@ -294,7 +301,7 @@ a:hover {
 /* -------- FOOTER -------- */
 .footer {
     padding: 2em;
-    background-color: #464646;
+    background-color: #808080;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 .footer_header {
@@ -311,6 +318,10 @@ a:hover {
     font-style: normal;
     font-weight: 500;
     line-height: 150%;
+}
+
+.footer_link:hover {
+    color: white;
 }
 
 .footer_col {

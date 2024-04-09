@@ -12,10 +12,10 @@ namespace INTEX2._0.Models
             _context = temp;
         }
         public List<Products> Products => _context.Products.ToList();
-        //public List<Category> Categories => _context.Categories.ToList();
-        //public List<Customer> Customers => _context.Customers.ToList();
-        //public List<LineItem> LineItems => _context.LineItems.ToList();
-        //public List<Order> Orders => _context.Orders.ToList();
-        //public List<ProductsCategory> ProductsCategories => _context.ProductsCategories.ToList();
+        public List<Category> Categories => _context.Categories.ToList();
+        public List<Customer> Customers => _context.Customers.ToList();
+        public List<LineItem> LineItems => _context.LineItems.ToList();
+        public List<Order> Orders => _context.Orders.ToList();
+        public List<ProductsCategory> ProductsCategories => _context.ProductsCategories.ToList();
     }
 }
