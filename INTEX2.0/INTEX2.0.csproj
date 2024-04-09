@@ -31,8 +31,4 @@
     <_ContentIncludedByDefault Remove="Views\Customer\_ViewStart.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Admin\" />
-  </ItemGroup>
-
 </Project>
