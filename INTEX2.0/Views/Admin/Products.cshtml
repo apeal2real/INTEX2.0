@@ -2,7 +2,6 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@model Products
+@model List<Products>
 
-
-<p>@ViewBag.Products.name</p>
+<p>@Model[0].Name</p>
