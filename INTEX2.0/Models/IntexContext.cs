@@ -27,9 +27,9 @@ public partial class IntexContext : DbContext
 
     public virtual DbSet<ProductsCategory> ProductsCategories { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlite("Data Source=INTEX.db");
+//     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+//         => optionsBuilder.UseSqlite("Data Source=INTEX.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -98,13 +98,13 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.ShortDescription).HasColumnName("short_description");
             entity.Property(e => e.Year).HasColumnName("year");
         });
-
+        
         modelBuilder.Entity<ProductsCategory>(entity =>
         {
             entity
                 .HasNoKey()
                 .ToTable("Products_Categories");
-
+        
             entity.Property(e => e.CategoryIdPkFk).HasColumnName("category_ID(PK/FK)");
             entity.Property(e => e.ProductIdPkFk).HasColumnName("product_ID(PK/FK)");
         });

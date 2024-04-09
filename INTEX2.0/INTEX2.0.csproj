@@ -27,7 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
+    <_ContentIncludedByDefault Remove="Views\Customer\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Customer\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
 
 </Project>
