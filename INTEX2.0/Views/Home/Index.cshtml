@@ -2,6 +2,8 @@
     ViewBag.Title = "Home";
 }
 
+@model List<Products>
+
 <div class="container">
     <div class="row">
         <p class="welcome">WELCOME TO BRICKBLOCKS</p>
@@ -11,6 +13,7 @@
     <div class="row">
         <title>Featured Products</title>
         <div class="product_box">
+            @* <img class="product_img" src="@Model[0].ImgLink" /> *@
             <p class="product_name">Product 1</p>
             <p class="product_price">$10.00</p>
         </div>
