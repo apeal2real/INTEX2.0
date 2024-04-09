@@ -5,29 +5,29 @@ namespace INTEX2._0.Models;
 
 public partial class Order
 {
-    public string? Field1 { get; set; }
+    public int? TransactionIdPk { get; set; }
 
-    public string? Field2 { get; set; }
+    public int? CustomerIdFk { get; set; }
 
-    public string? Field3 { get; set; }
+    public string? Date { get; set; }
 
-    public string? Field4 { get; set; }
+    public string? DayOfWeek { get; set; }
 
-    public string? Field5 { get; set; }
+    public int? Time { get; set; }
 
-    public string? Field6 { get; set; }
+    public string? EntryMode { get; set; }
 
-    public string? Field7 { get; set; }
+    public int? Amount { get; set; }
 
-    public string? Field8 { get; set; }
+    public string? TypeOfTransaction { get; set; }
 
-    public string? Field9 { get; set; }
+    public string? CountryOfTransaction { get; set; }
 
-    public string? Field10 { get; set; }
+    public string? ShippingAddress { get; set; }
 
-    public string? Field11 { get; set; }
+    public string? Bank { get; set; }
 
-    public string? Field12 { get; set; }
+    public string? TypeOfCard { get; set; }
 
-    public string? Field13 { get; set; }
+    public int? Fraud { get; set; }
 }

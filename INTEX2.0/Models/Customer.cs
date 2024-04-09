@@ -5,17 +5,17 @@ namespace INTEX2._0.Models;
 
 public partial class Customer
 {
-    public string? Field1 { get; set; }
+    public int? CustomerIdPk { get; set; }
 
-    public string? Field2 { get; set; }
+    public string? FirstName { get; set; }
 
-    public string? Field3 { get; set; }
+    public string? LastName { get; set; }
 
-    public string? Field4 { get; set; }
+    public string? BirthDate { get; set; }
 
-    public string? Field5 { get; set; }
+    public string? CountryOfResidence { get; set; }
 
-    public string? Field6 { get; set; }
+    public string? Gender { get; set; }
 
-    public string? Field7 { get; set; }
+    public double? Age { get; set; }
 }
