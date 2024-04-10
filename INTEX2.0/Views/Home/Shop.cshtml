@@ -50,7 +50,7 @@
             <div class="row">
                 @foreach (var product in ViewBag.Products)
                 {
-                    <a class="product_box" asp-controller="Home" asp-action="Product">
+                    <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id=@product.ProductIdPk>
                         <div class="product_img_box">
                             <img class="product_img" src="@product.ImgLink"/>
                         </div>
@@ -63,6 +63,7 @@
                     </a>
                 }
             </div>
+            @* potentially add pagination bootstrap here from mission 11(?) project*@
         </div>
     </div>
 </div>
