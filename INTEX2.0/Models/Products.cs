@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace INTEX2._0.Models;
 
 public partial class Products
 {
-    public int? ProductIdPk { get; set; }
+    [Key]
+    public int? ProductId { get; set; }
 
     public string? Name { get; set; }
 

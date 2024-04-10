@@ -5,9 +5,9 @@ namespace INTEX2._0.Models;
 
 public partial class LineItem
 {
-    public int? TransactionIdPkFk { get; set; }
+    public int TransactionId { get; set; }
 
-    public int? ProductIdPkFk { get; set; }
+    public int ProductId { get; set; }
 
     public int? Qty { get; set; }
 
