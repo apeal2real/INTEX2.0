@@ -1,0 +1,106 @@
+﻿@using INTEX2._0.Models
+
+@{
+    ViewBag.Title = "Users";
+}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+        background-color: #ddd;
+    }
+</style>
+
+<h2>@ViewBag.Title</h2>
+
+<table>
+    <thead>
+        <tr>
+@*             <th>User ID</th> *@
+            <th>Username</th>
+@*             <th>Normalized Username</th>
+ *@            <th>Email</th>
+@*             <th>Normalized Email</th>
+ *@            <th>Email Confirmed</th>
+@*             <th>Password Hash</th>
+            <th>Security Stamp</th>
+            <th>Concurrency Stamp</th> *@
+            <th>Phone Number</th>
+            <th>Phone Number Confirmed</th>
+            <th>Two Factor Enabled</th>
+@*             <th>Lockout End</th>
+            <th>Lockout Enabled</th>
+            <th>Access Failed Count</th> *@
+@*             <th>User Claims</th>
+            <th>User Logins</th>
+            <th>User Tokens</th> *@
+            <th>Roles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in ViewBag.Users)
+        {
+            <tr>
+@*                 <td>@user.Id</td>
+ *@                <td>@user.UserName</td>
+@*                 <td>@user.NormalizedUserName</td>
+ *@                <td>@user.Email</td>
+@*                 <td>@user.NormalizedEmail</td>
+ *@                <td>@user.EmailConfirmed</td>
+@*                 <td>@user.PasswordHash</td>
+                <td>@user.SecurityStamp</td>
+                <td>@user.ConcurrencyStamp</td> *@
+                <td>@user.PhoneNumber</td>
+                <td>@user.PhoneNumberConfirmed</td>
+                <td>@user.TwoFactorEnabled</td>
+@*                 <td>@user.LockoutEnd</td>
+                <td>@user.LockoutEnabled</td>
+                <td>@user.AccessFailedCount</td> *@
+@*                 <td>
+                    @foreach (var claim in user.AspNetUserClaims)
+                    {
+                        @claim.ClaimType: @claim.ClaimValue<br />
+                    }
+                </td>
+                <td>
+                    @foreach (var login in user.AspNetUserLogins)
+                    {
+                        @login.LoginProvider: @login.ProviderKey<br />
+                    }
+                </td>
+                <td>
+                    @foreach (var token in user.AspNetUserTokens)
+                    {
+                        @token.LoginProvider: @token.Name: @token.Value<br />
+                    }
+                </td> *@
+                <td>
+                    @foreach (var role in user.Roles)
+                    {
+                        @role.Name
+
+                        <br />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

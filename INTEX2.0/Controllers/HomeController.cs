@@ -7,16 +7,20 @@ namespace INTEX2._0.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private IIntexRepository _repo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IIntexRepository temp)
         {
-            _logger = logger;
+            _repo = temp;
         }
 
         public IActionResult Index()
         {
-            return View();
+            Cart cart = new Cart();
+            ViewBag.Cart = cart;
+            
+            var products = _repo.Products.ToList();
+            return View(products);
         }
         public IActionResult Login()
         {
@@ -24,17 +28,24 @@ namespace INTEX2._0.Controllers
         }
         public IActionResult Shop()
         {
+            ViewBag.Products = _repo.Products.ToList();
+            ViewBag.Categories = _repo.Categories.ToList();
+            ViewBag.Colors = _repo.Products.Select(p => p.PrimaryColor).Distinct();
             return View();
         }
 
-        public IActionResult Product()
+        public IActionResult Product(int id)
         {
-            return View();
+            var product = _repo.Products
+                .FirstOrDefault(x => x.ProductId == id);
+            
+            return View(product);
         }
-        public IActionResult Cart()
-        {
-            return View();
-        }
+        //[Authorize(Roles ="User")]
+        // public IActionResult Cart() 
+        // {
+        //     return View();
+        // }
         public IActionResult About()
         {
             return View();
@@ -43,8 +54,7 @@ namespace INTEX2._0.Controllers
         {
             return View();
         }
-        [Authorize]
-        public IActionResult Secrets()
+        public IActionResult OrderConfirm()
         {
             return View();
         }

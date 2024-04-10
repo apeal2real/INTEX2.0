@@ -1,0 +1,6 @@
+# ignore db files
+*.db-shm
+*.db-wal
+
+# ignore rider settings
+../.idea/

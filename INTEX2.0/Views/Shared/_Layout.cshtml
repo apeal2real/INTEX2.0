@@ -1,38 +1,62 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BrickBlocks - @ViewData["Title"]</title>
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" type="image/x-icon" href="~/img/brick.svg">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/intex logo.png" alt="brickblocks logo"/>
+                    <img class="nav_logo" src="~/img/intex_logo.png" alt="brickblocks logo"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Shop">Shop</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login/Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Cart">Cart</a>
-                        </li>
-                        
+                <div class="navbar-collapse collapse d-flex align-items-center flex-row-reverse">
+                    <ul class="navbar-nav">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Orders">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Products">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Users">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login/Logout</a>
+                            </li>
+                        } else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Cart">Cart</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login/Logout</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -44,9 +68,33 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        @* TODO: add custom footer here *@
-    </footer>
+    @if (!User.IsInRole("Admin"))
+    {
+        <footer class="footer row align-content-center">
+            <div class="col-md-4">
+                <img class="nav-logo" src="~/img/intex_logo.png" alt="brick blocks logo" style="width: 90%; height: auto;"/>
+            </div>
+            <div class="col-md-2 footer_col">
+                <p class="footer_header">About BrickBlocks</p>
+                <p class="footer_text">BrickBlocks is a licensed LEGO retailer that
+                    guarantees quality in customer interaction as well as order fulfillment</p>
+            </div>
+            <div class="col-md-2 footer_col">
+                <p class="footer_header">Shop</p>
+                <a class="footer_text footer_link" asp-controller="Home" asp-action="Cart">Shopping Cart</a>
+                <a class="footer_text footer_link" asp-controller="Home" asp-action="Shop">Shop LEGO Products</a>
+            </div>
+            <div class="col-md-2 footer_col">
+                <p class="footer_header">About Us</p>
+                <a class="footer_text footer_link" asp-controller="Home" asp-action="About">About BrickBlocks</a>
+                <a class="footer_text footer_link" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+            </div>
+            <div class="col-md-2">
+                
+            </div>
+
+        </footer>
+    }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,0 +1,90 @@
+@page
+@using INTEX2._0.Models
+@model INTEX2._0.Pages.CartModel
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <h1 class="title text-center">Shopping Cart</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="cart_container">
+                <table class="table table-borderless">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var l in Model.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
+                    {
+                        <tr>
+                            <td>@l.Products.Name</td>
+                            <td>$@l.Products.Price.00</td>
+                            <td>@l.Quantity</td>
+                            <td>$@(l.Products.Price * l.Quantity).00</td>
+                            <td>
+                                <form method="post" asp-page-handler="RemoveItem" asp-route-productId="@l.Products.ProductId">
+                                    <button type="submit" class="btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-3">
+                    <a type="submit" class="btn btn-danger sub_btn" asp-controller="Home" asp-action="Shop">Keep Shopping</a>
+                </div>
+                <div class="col-md-3">
+                    <form method="post" asp-page-handler="ClearCart">
+                        <button type="submit" class="btn btn-danger warning_btn">Clear Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="cart_details_box">
+                <table class="table table-borderless">
+                    <thead>
+                    <tr>
+                        <th class="category_name fw-bold" style="text-align: left;">Details</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-left">Subtotal</td>
+                        <td style="text-align: right">$@Model.Cart?.CalcTotal().00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Shipping</td>
+                        <td style="text-align: right">Free</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left fw-bold">Total</td>
+                        <td class="fw-bold" style="text-align: right">$@Model.Cart?.CalcTotal().00</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <form class="text-center" method="post" asp-page-handler="NavigateToOrderConfirm">
+                    <button class="btn btn-primary main_btn">Checkout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

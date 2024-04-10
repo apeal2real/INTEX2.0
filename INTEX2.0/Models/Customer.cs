@@ -5,7 +5,7 @@ namespace INTEX2._0.Models;
 
 public partial class Customer
 {
-    public int? CustomerIdPk { get; set; }
+    public int CustomerId { get; set; }
 
     public string? FirstName { get; set; }
 

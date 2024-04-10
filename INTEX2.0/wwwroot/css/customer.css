@@ -1,0 +1,335 @@
+/* --------- NAV BAR --------- */
+.nav_logo {
+    width: 85%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* --------- HOME PAGE --------- */
+.title {
+    color: #1A1A1A;
+    /* Heading 03/Heading 03 — 600 */
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 3rem */
+}
+
+/* Hero box */
+.hero_box {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 60rem;
+    height: 25rem;
+    padding: 2em;
+    background-color: #EDF2EE;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin-bottom: 3em;
+}
+
+.text_box {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.hero_text {
+    color: #1A1A1A;
+    /* Display 01/Display 01 — 600 */
+    font-size: 4.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 5.4rem */
+}
+
+.welcome {
+    color: #00B207;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 0.875rem */
+    letter-spacing: 0.0175rem;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.hero_img {
+    width: 100%;
+    height: auto;
+}
+
+/* Products */
+.product_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+    margin: 1em;
+    width: 18rem;
+    height: 20rem;
+    border-radius: 0.5rem;
+    border: 1px solid #E6E6E6;
+}
+
+.product_box:hover {
+    border: 1px solid #FFD700;
+    /* Hover Shadow */
+    box-shadow: 0px 0px 12px 0px #FFD700;
+}
+
+.product_img_box {
+    width: 15.375rem;
+    height: 15.375rem;
+    position: relative;
+    overflow: hidden;
+}
+.product_img {
+    position: absolute;
+    width: auto;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.product_name {
+    margin: 1em 0 0;
+    color: #4D4D4D;
+    /* Body Small/Body Small, 400 */
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 1.3125rem */
+}
+
+.product_price {
+    margin: 0;
+    color: #1A1A1A;
+    /* Body Medium/Body Medium, 500 */
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 1.5rem */
+}
+
+.icon_cart:hover {
+    /* Hover Shadow */
+    box-shadow: 0px 0px 12px 0px #FFD700;
+}
+
+/* Categories */
+.category_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+    margin: 1em;
+    width: 14rem;
+    height: 16rem;
+    border-radius: 0.5rem;
+    border: 1px solid #E6E6E6;
+}
+
+.category_box:hover {
+    border: 1px solid #00B207;
+    /* Hover Shadow */
+    box-shadow: 0px 0px 12px 0px #00B207;
+}
+
+.category_img_box {
+    width: 4rem;
+    height: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+.category_img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.category_name {
+    color: #1A1A1A;
+    text-align: center;
+    /* Body Large/Body Large, 500 */
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 1.6875rem */
+}
+
+.category_subtitle {
+    color: #808080;
+    text-align: center;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 1.3125rem */
+}
+
+
+/* ----- SHOP PAGE ------ */
+.filter_box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 0.5rem;
+    border: 1px solid #E6E6E6;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 2em;
+    margin-top: 1em;
+}
+
+.filter_heading {
+    color: #1A1A1A;
+    /* Body XL/Body XL, 500 */
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 1.875rem */
+    margin-top: 1em;
+}
+.shop_text {
+    color: #1A1A1A;
+    /* Body Small/Body Small, 400 */
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 1.3125rem */
+}
+
+.price_text {
+    color: #1A1A1A;
+    /* Body Medium/Body Medium, 500 */
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 1.5rem */
+}
+
+.shop_box {
+    width: 25rem;
+    height: 26rem;
+    border-radius: 0.5rem;
+    border: 1px solid #E6E6E6;
+}
+
+.shop_img {
+    width: 19rem;
+    height: 18.1875rem;
+}
+
+.search_bar {
+    display: flex;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #E6E6E6;
+    width: 8em;
+}
+
+/* PRODUCT DETAIL */
+.product_detail_container {
+    width: 82.5rem;
+    height: 34.875rem;
+}
+
+.product_detail_img {
+    width: 29.3125rem;
+    height: 32.9375rem;
+}
+
+.detail_box {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.price_text {
+    color: #2C742F;
+    /* Body XXL/Body XXL, 500 */
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 2.25rem */
+}
+
+/*.btn_circle {*/
+/*    width: 4rem;*/
+/*    height: 4rem;*/
+/*    background-color: #F2F2F2;*/
+/*    border-radius: 50%;*/
+/*}*/
+
+/* SHOPPING CART */
+.cart_container {
+    padding: 1em;
+    border-radius: 0.5rem;
+    border: 1px solid #E6E6E6;
+}
+
+.cart_details_box {
+    padding: 1em;
+    border-radius: 0.5rem;
+    border: 1px solid #E6E6E6;
+}
+
+/* CONFIRMATION PAGE */
+.order_details_container {
+    display: flex;
+    width: 59.5rem;
+    height: 40.375rem;
+    padding: 1.5rem 1.5rem 2rem 1.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid #F2F2F2;
+    box-shadow: 0px 0px 56px 0px rgba(0, 38, 3, 0.08);
+}
+
+/* -------- FOOTER -------- */
+.footer {
+    padding: 2em;
+    background-color: #808080;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.footer_header {
+    color: #FFF;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 3rem */
+}
+
+.footer_text {
+    color: #D7D7D7;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+.footer_link:hover {
+    color: white;
+}
+
+.footer_col {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.icon_social {
+    width: 4.5rem;
+    height: 4.5rem;
+}
