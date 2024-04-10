@@ -272,15 +272,13 @@ a {
 
 /* SHOPPING CART */
 .cart_container {
-    width: 54.5rem;
-    height: 23.5rem;
+    padding: 1em;
     border-radius: 0.5rem;
     border: 1px solid #E6E6E6;
 }
 
 .cart_details_box {
-    width: 26.5rem;
-    height: 23.5rem;
+    padding: 1em;
     border-radius: 0.5rem;
     border: 1px solid #E6E6E6;
 }

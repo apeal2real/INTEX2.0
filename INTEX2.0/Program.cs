@@ -37,6 +37,10 @@ public class Program
         builder.Services.AddScoped<IIntexRepository, EFIntexRepository>();
         builder.Services.AddScoped<IUsers, EFUsers>();
 
+        builder.Services.AddRazorPages();
+        builder.Services.AddDistributedMemoryCache();
+        builder.Services.AddSession();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -53,6 +57,8 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+
+        app.UseSession();
 
         app.UseRouting();
 

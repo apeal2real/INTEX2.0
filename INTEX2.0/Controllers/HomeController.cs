@@ -16,6 +16,9 @@ namespace INTEX2._0.Controllers
 
         public IActionResult Index()
         {
+            Cart cart = new Cart();
+            ViewBag.Cart = cart;
+            
             var products = _repo.Products.ToList();
             return View(products);
         }
@@ -31,15 +34,18 @@ namespace INTEX2._0.Controllers
             return View();
         }
 
-        public IActionResult Product()
+        public IActionResult Product(int id)
         {
-            return View();
+            var product = _repo.Products
+                .FirstOrDefault(x => x.ProductId == id);
+            
+            return View(product);
         }
         //[Authorize(Roles ="User")]
-        public IActionResult Cart() 
-        {
-            return View();
-        }
+        // public IActionResult Cart() 
+        // {
+        //     return View();
+        // }
         public IActionResult About()
         {
             return View();
@@ -48,8 +54,7 @@ namespace INTEX2._0.Controllers
         {
             return View();
         }
-        [Authorize]
-        public IActionResult Secrets()
+        public IActionResult OrderConfirm()
         {
             return View();
         }
