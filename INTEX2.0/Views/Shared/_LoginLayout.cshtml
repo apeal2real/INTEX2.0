@@ -15,20 +15,22 @@
         <link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
     </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img class="nav_logo" src="~/img/intex_logo.png" alt="brickblocks logo"/>
-                    </a>
-                </div>
-            </nav>
-        </header>
+<body>
+<header>
         <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+            <div class="row justify-content-center">
+                <img class="login_image" src="~/img/intex_logo.png" alt="brickblocks logo"/>
+            </div>
         </div>
-    </body>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+</body>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </html>

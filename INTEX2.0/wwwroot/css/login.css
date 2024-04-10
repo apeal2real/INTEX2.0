@@ -1,24 +1,45 @@
 /* LOGIN BOX */
 .login_box {
-    border-radius: 8px;
-    border: 1px solid #F2F2F2;
-    box-shadow: 0px 0px 56px 0px rgba(0, 38, 3, 0.08);
-}
-
-.login_input {
+    /*width: 35rem;*/
+    /*height: 27rem;*/
     display: flex;
-    padding: 14px 16px;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    border-radius: 6px;
-    border: 1px solid #E6E6E6;
+    border-radius: 0.5rem;
+    border: 1px solid #F2F2F2;
+    box-shadow: 0 0 56px 0 rgba(0, 38, 3, 0.08);
+    padding: 2em 6em 2em 6em;
 }
 
+.customer_box {
+    width: 35rem;
+    height: 40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid #F2F2F2;
+    box-shadow: 0 0 56px 0 rgba(0, 38, 3, 0.08);
+}
+
+/*not using */
+/*.login_input {*/
+/*    display: flex;*/
+/*    padding: 0.875rem 1rem;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    gap: 0.625rem;*/
+/*    border-radius: 0.375rem;*/
+/*    border: 1px solid #E6E6E6;*/
+/*}*/
+
 .login_image {
-    width: 496px;
-    height: 236px;
-    flex-shrink: 0;
+    width: 20rem;
+    height: auto;
+    margin-top: 5em;
+    margin-bottom: 1em;
 }
 
 /* MFA verify page */
@@ -32,10 +53,65 @@
 
 .mfa_code_input {
     display: flex;
-    width: 67px;
-    height: 76px;
-    padding: 14px 16px;
+    width: 4.1875rem;
+    height: 4.75rem;
+    padding: 0.875rem 1rem;
     align-items: center;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     border: 1px solid #E6E6E6;
+}
+
+.login_txt {
+    color: #1A1A1A;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 1.5rem */
+}
+
+.login_link {
+    color: #1A1A1A;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 1.5rem */
+}
+
+.login_link:hover {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+
+.forgot_txt {
+    color: #1A1A1A;
+    font-size: 0.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 1.5rem */
+}
+
+.forgot_txt:hover {
+    color: #1A1A1A;
+    font-weight: 500;
+}
+
+.mng_link {
+    color: #1A1A1A;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 1.5rem */
+}
+
+.mng_link:hover {
+    color: #00B207;
+    font-weight: 600;
+}
+
+.link_box {
+    padding: 1em 0 1em 0;
+    text-align: center;
+    border-radius: 0.375rem;
+    border: 1px solid #E6E6E6;
+    margin-bottom: 1em;
 }

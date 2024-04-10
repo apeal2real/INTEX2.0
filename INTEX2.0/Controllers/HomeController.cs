@@ -22,10 +22,6 @@ namespace INTEX2._0.Controllers
             var products = _repo.Products.ToList();
             return View(products);
         }
-        public IActionResult Login()
-        {
-            return View();
-        }
         public IActionResult Shop()
         {
             ViewBag.Products = _repo.Products.ToList();
