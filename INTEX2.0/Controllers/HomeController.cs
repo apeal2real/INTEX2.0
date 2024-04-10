@@ -30,6 +30,11 @@ namespace INTEX2._0.Controllers
             return View();
         }
 
+        [HttpPost]
+        // public IActionResult ShopFilter(string category, string color)
+        // {
+        // }
+
         public IActionResult Product(int id)
         {
             var product = _repo.Products
@@ -37,11 +42,7 @@ namespace INTEX2._0.Controllers
             
             return View(product);
         }
-        //[Authorize(Roles ="User")]
-        // public IActionResult Cart() 
-        // {
-        //     return View();
-        // }
+        
         public IActionResult About()
         {
             return View();

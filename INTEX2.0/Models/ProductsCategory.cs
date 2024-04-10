@@ -8,7 +8,7 @@ namespace INTEX2._0.Models;
 public partial class ProductsCategory
 {
     [ForeignKey("Category")]
-    public string CategoryId { get; set; } = null!;
+    public int CategoryId { get; set; }
 
     public virtual Category Category { get; set; }
 
