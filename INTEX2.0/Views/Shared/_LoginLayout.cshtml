@@ -1,0 +1,34 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"]</title>
+        <link rel="icon" type="image/x-icon" href="~/img/brick.svg">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/customer.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img class="nav_logo" src="~/img/intex_logo.png" alt="brickblocks logo"/>
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </body>
+</html>
