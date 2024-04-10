@@ -3,6 +3,16 @@
 @{
     ViewData["Title"] = "Confirm email";
 }
-
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="container">
+    <div class="row">
+        <h1>Email confirmation</h1>
+    </div>
+    <div class="row">
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+    </div>
+    <div class="row text-center">
+        <div class="col">
+            <a class="btn btn-primary main_btn" asp-area="Identity" asp-page="/Account/Login">Log In</a>
+        </div>
+    </div>
+</div>
