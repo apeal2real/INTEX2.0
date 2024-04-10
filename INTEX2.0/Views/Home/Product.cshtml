@@ -7,7 +7,7 @@
 <h1>@Model.Name</h1>
 <subtitle>@Model.Price</subtitle>
 <br/>
-<form id="@Model.ProductIdPk" method="post" asp-page="/Cart" asp-route-productId="@Model.ProductIdPk">
+<form id="@Model.ProductId" method="post" asp-page="/Cart" asp-route-productId="@Model.ProductId">
     @* <input type="hidden" asp-route="@Model.ProductIdPk" /> *@
     <button type="submit" class="btn btn-primary main_btn">Add to Cart</button>
 </form>

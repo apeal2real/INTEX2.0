@@ -7,7 +7,7 @@ public class Cart
     public void AddItem(Products p, int quantity)
     {
         CartLine? line = Lines
-            .Where(x => x.Products.ProductIdPk == p.ProductIdPk)
+            .Where(x => x.Products.ProductId == p.ProductId)
             .FirstOrDefault();
 
         if (line == null)
@@ -23,7 +23,7 @@ public class Cart
         }
     }
 
-    public void RemoveItem(Products p) => Lines.RemoveAll(x => x.Products.ProductIdPk == p.ProductIdPk);
+    public void RemoveItem(Products p) => Lines.RemoveAll(x => x.Products.ProductId == p.ProductId);
 
     public void Clear() => Lines.Clear();
 

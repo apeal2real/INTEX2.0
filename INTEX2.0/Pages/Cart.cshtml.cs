@@ -25,7 +25,7 @@ public class CartModel : PageModel
     public void OnPost(int productId)
     {
         Products prod = _repo.Products
-            .FirstOrDefault(x => x.ProductIdPk == productId);
+            .FirstOrDefault(x => x.ProductId == productId);
 
         if (prod != null)
         {
@@ -37,7 +37,7 @@ public class CartModel : PageModel
     
     public void OnPostRemoveItem(int productId)
     {
-        Products productToRemove = _repo.Products.FirstOrDefault(x => x.ProductIdPk == productId);
+        Products productToRemove = _repo.Products.FirstOrDefault(x => x.ProductId == productId);
         if (productToRemove != null)
         {
             Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();

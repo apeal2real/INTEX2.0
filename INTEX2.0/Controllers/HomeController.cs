@@ -37,7 +37,7 @@ namespace INTEX2._0.Controllers
         public IActionResult Product(int id)
         {
             var product = _repo.Products
-                .FirstOrDefault(x => x.ProductIdPk == id);
+                .FirstOrDefault(x => x.ProductId == id);
             
             return View(product);
         }
