@@ -5,9 +5,9 @@ namespace INTEX2._0.Models;
 
 public partial class Order
 {
-    public int? TransactionIdPk { get; set; }
+    public int TransactionId { get; set; }
 
-    public int? CustomerIdFk { get; set; }
+    public int? CustomerId { get; set; }
 
     public string? Date { get; set; }
 

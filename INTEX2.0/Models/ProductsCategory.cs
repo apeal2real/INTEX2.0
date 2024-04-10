@@ -5,7 +5,7 @@ namespace INTEX2._0.Models;
 
 public partial class ProductsCategory
 {
-    public int? CategoryIdPkFk { get; set; }
+    public string CategoryId { get; set; } = null!;
 
-    public int? ProductIdPkFk { get; set; }
+    public int ProductId { get; set; }
 }
