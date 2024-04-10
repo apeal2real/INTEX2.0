@@ -37,7 +37,7 @@ public partial class IntexContext : DbContext
         {
             entity.HasNoKey();
 
-            entity.Property(e => e.CategoryIdPk).HasColumnName("category_ID(PK)");
+            entity.Property(e => e.CategoryIdPk).HasColumnName("category_ID");
             entity.Property(e => e.CategoryName).HasColumnName("category_name");
         });
 
@@ -48,7 +48,7 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.BirthDate).HasColumnName("birth_date");
             entity.Property(e => e.CountryOfResidence).HasColumnName("country_of_residence");
-            entity.Property(e => e.CustomerIdPk).HasColumnName("customer_ID(PK)");
+            entity.Property(e => e.CustomerIdPk).HasColumnName("customer_ID");
             entity.Property(e => e.FirstName).HasColumnName("first_name");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.LastName).HasColumnName("last_name");
@@ -58,10 +58,10 @@ public partial class IntexContext : DbContext
         {
             entity.HasNoKey();
 
-            entity.Property(e => e.ProductIdPkFk).HasColumnName("product_ID(PK/FK)");
+            entity.Property(e => e.ProductIdPkFk).HasColumnName("product_ID");
             entity.Property(e => e.Qty).HasColumnName("qty");
             entity.Property(e => e.Rating).HasColumnName("rating");
-            entity.Property(e => e.TransactionIdPkFk).HasColumnName("transaction_ID(PK/FK)");
+            entity.Property(e => e.TransactionIdPkFk).HasColumnName("transaction_ID");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -71,14 +71,14 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.Bank).HasColumnName("bank");
             entity.Property(e => e.CountryOfTransaction).HasColumnName("country_of_transaction");
-            entity.Property(e => e.CustomerIdFk).HasColumnName("customer_ID(FK)");
+            entity.Property(e => e.CustomerIdFk).HasColumnName("customer_ID");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.DayOfWeek).HasColumnName("day_of_week");
             entity.Property(e => e.EntryMode).HasColumnName("entry_mode");
             entity.Property(e => e.Fraud).HasColumnName("fraud");
             entity.Property(e => e.ShippingAddress).HasColumnName("shipping_address");
             entity.Property(e => e.Time).HasColumnName("time");
-            entity.Property(e => e.TransactionIdPk).HasColumnName("transaction_ID(PK)");
+            entity.Property(e => e.TransactionIdPk).HasColumnName("transaction_ID");
             entity.Property(e => e.TypeOfCard).HasColumnName("type_of_card");
             entity.Property(e => e.TypeOfTransaction).HasColumnName("type_of_transaction");
         });
@@ -93,7 +93,7 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.NumParts).HasColumnName("num_parts");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.PrimaryColor).HasColumnName("primary_color");
-            entity.Property(e => e.ProductIdPk).HasColumnName("product_ID(PK)");
+            entity.Property(e => e.ProductIdPk).HasColumnName("product_ID");
             entity.Property(e => e.SecondaryColor).HasColumnName("secondary_color");
             entity.Property(e => e.ShortDescription).HasColumnName("short_description");
             entity.Property(e => e.Year).HasColumnName("year");
@@ -105,8 +105,8 @@ public partial class IntexContext : DbContext
                 .HasNoKey()
                 .ToTable("Products_Categories");
         
-            entity.Property(e => e.CategoryIdPkFk).HasColumnName("category_ID(PK/FK)");
-            entity.Property(e => e.ProductIdPkFk).HasColumnName("product_ID(PK/FK)");
+            entity.Property(e => e.CategoryIdPkFk).HasColumnName("category_ID");
+            entity.Property(e => e.ProductIdPkFk).HasColumnName("product_ID");
         });
 
         OnModelCreatingPartial(modelBuilder);
