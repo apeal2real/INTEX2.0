@@ -1,11 +1,68 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
 @{
     ViewBag.Title = "Products";
 }
 
-@model List<Products>
-
-<p>@Model[0].Name</p>
+<div class="container">
+    <div class="row text-center">
+        <h1 class="title">Products</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-2">
+            @* maybe add search bar back in if time*@
+            @* <div class="search_bar" style="font-size: .75rem;"> *@
+            @*     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> *@
+            @*         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/> *@
+            @*     </svg> *@
+            @*     Search *@
+            @* </div> *@
+            <div class="filter_box">
+                <form>
+                    <div class="form-group">
+                        <h1 class="filter_heading">Category</h1>
+                        @foreach (var category in @ViewBag.Categories)
+                        {
+                            <input type="radio" id="@category.CategoryId" name="@category.CategoryName" asp-value="@category.CategoryId">
+                            <label for="@category.CategoryId">@category.CategoryName</label>
+                            <br/>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <h1 class="filter_heading">Color</h1>
+                        @foreach (var color in @ViewBag.Colors)
+                        {
+                            <input type="radio" id="@color" name="@color" asp-value="@color">
+                            <label for="@color">@color</label>
+                            <br/>
+                        }
+                    </div>
+                    <div class="form-group mt-3">
+                        <button class="btn btn-primary main_btn">Filter
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-sliders" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
+                            </svg>
+                        </button>
+                        <button class="btn btn-primary sub_btn">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                @foreach (var product in ViewBag.Products)
+                {
+                    <a class="product_box" asp-controller="Home" asp-action="Product">
+                        <div class="product_img_box">
+                            <img class="product_img" src="@product.ImgLink"/>
+                        </div>
+                        <p class="product_name">@product.Name</p>
+                        <div class="row">
+                            <div class="col">
+                                <p class="product_price">$@product.Price.00</p>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

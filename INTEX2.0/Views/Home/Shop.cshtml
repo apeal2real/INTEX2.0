@@ -21,8 +21,8 @@
                         <h1 class="filter_heading">Category</h1>
                         @foreach (var category in @ViewBag.Categories)
                         {
-                            <input type="radio" id="@category.CategoryIdPk" name="@category.CategoryName" asp-value="@category.CategoryIdPk">
-                            <label for="@category.CategoryIdPk">@category.CategoryName</label>
+                            <input type="radio" id="@category.CategoryId" name="@category.CategoryName" asp-value="@category.CategoryId">
+                            <label for="@category.CategoryId">@category.CategoryName</label>
                             <br/>
                         }
                     </div>

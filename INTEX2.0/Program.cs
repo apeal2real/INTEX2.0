@@ -25,6 +25,8 @@ public class Program
             options.UseSqlite(connectionString));
         builder.Services.AddDbContext<IntexContext>(options =>
             options.UseSqlite(connectionString2));
+        services.AddDbContext<MfalabW24Context>(options =>
+            options.UseSqlite(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -33,6 +35,7 @@ public class Program
         builder.Services.AddControllersWithViews();
 
         builder.Services.AddScoped<IIntexRepository, EFIntexRepository>();
+        builder.Services.AddScoped<IUsers, EFUsers>();
 
         var app = builder.Build();
 
