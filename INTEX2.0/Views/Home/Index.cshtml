@@ -8,19 +8,17 @@
     <div class="row justify-content-center">
         <div class="hero_box">
             <div class="col text_box">
-                @* <div class="text_box"> *@
                     <p class="welcome">WELCOME TO BRICKBLOCKS</p>
                     <h1 class="hero_text">Expand Your Creativity</h1>
-                    <button class="btn btn-primary main_btn" style="width: 10em;">
+                    <a class="btn btn-primary main_btn" asp-controller="Home" asp-action="Shop" style="width: 10em;">
                         Shop
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
                             <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
                         </svg>
-                    </button>
-                @* </div> *@
+                    </a>
             </div>
             <div class="col">
-                <img class="hero_img" src="Rivendell.png"/>
+                <img class="hero_img" src="~/img/Rivendell.png" alt="Rivendell lego set"/>
             </div>
         </div>
     </div>
@@ -28,46 +26,46 @@
         <h1 class="title text-center">Featured Products</h1>
         @foreach (var product in Model.Take(4))
         {
-            <div class="product_box">
+            <a class="product_box" asp-controller="Home" asp-action="Product" style="text-decoration: none;">
                 <div class="product_img_box">
                     <img class="product_img" src="@product.ImgLink"/>
                 </div>
                 <p class="product_name">@product.Name</p>
                 <p class="product_price">$@product.Price.00</p>
                 @* TODO: add cart icon here *@
-            </div>
+            </a>
         }
     </div>
     <div class="row justify-content-center">
         <h1 class="title text-center" style="margin-top: 1em;">Top Categories</h1>
-        <div class="category_box">
+        <a class="category_box" asp-controller="Home" asp-action="Shop">
             <div class="category_img_box" style="width: 5em;">
-                <img class="category_img" src="star_wars.png"/>
+                <img class="category_img" src="~/img/star_wars.png" alt="star wars logo"/>
             </div>
             <p class="category_name">Star Wars</p>
             <p class="category_subtitle">Num Products</p>
-        </div>
-        <div class="category_box">
+        </a>
+        <a class="category_box" asp-controller="Home" asp-action="Shop">
             <div class="category_img_box" style="width: 5em;">
-                <img class="category_img" src="vehicle.png"/>
+                <img class="category_img" src="~/img/vehicle.png" alt="lego vehicle logo"/>
             </div>
             <p class="category_name">Vehicles</p>
             <p class="category_subtitle">Num Products</p>
-        </div>
-        <div class="category_box">
+        </a>
+        <a class="category_box" asp-controller="Home" asp-action="Shop">
             <div class="category_img_box" style="width: 3em;">
-                <img class="category_img" src="disney_icon.png"/>
+                <img class="category_img" src="~/img/disney_icon.png" alt="disney icon"/>
             </div>
             <p class="category_name">Disney</p>
             <p class="category_subtitle">Num Products</p>
-        </div>
-        <div class="category_box">
+        </a>
+        <a class="category_box" asp-controller="Home" asp-action="Shop">
             <div class="category_img_box" style="width: 3em;">
-                <img class="category_img" src="lego_head.png"/>
+                <img class="category_img" src="~/img/lego_head.png" alt="lego minifigure head"/>
             </div>
             <p class="category_name">Minifigures</p>
             <p class="category_subtitle">Num Products</p>
-        </div>
+        </a>
     </div>
     
 </div>

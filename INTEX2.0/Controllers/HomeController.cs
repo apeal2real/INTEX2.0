@@ -25,6 +25,9 @@ namespace INTEX2._0.Controllers
         }
         public IActionResult Shop()
         {
+            ViewBag.Products = _repo.Products.ToList();
+            ViewBag.Categories = _repo.Categories.ToList();
+            ViewBag.Colors = _repo.Products.Select(p => p.PrimaryColor).Distinct();
             return View();
         }
 
