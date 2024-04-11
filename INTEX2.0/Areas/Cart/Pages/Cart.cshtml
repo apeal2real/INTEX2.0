@@ -1,6 +1,9 @@
 @page
 @using INTEX2._0.Models
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model INTEX2._0.Pages.CartModel
+@inject SignInManager<IdentityUser> SignInManager
 
 @{
     ViewBag.Title = "Cart";
@@ -81,9 +84,16 @@
                     </tr>
                     </tbody>
                 </table>
-                <form class="text-center" method="post" asp-page-handler="NavigateToOrderConfirm">
-                    <button class="btn btn-primary main_btn">Checkout</button>
-                </form>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <form class="text-center" method="post" asp-page-handler="NavigateToPayment">
+                        <button class="btn btn-primary main_btn">Checkout</button>
+                    </form>
+                }
+                else
+                {
+                    <a class="btn btn-primary main_btn" asp-area="Identity" asp-page="/Account/Login">Login to Checkout</a>
+                }
             </div>
         </div>
     </div>

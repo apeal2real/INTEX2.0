@@ -1,5 +1,6 @@
 @{
     ViewBag.Title = "BrickBlocks";
+    var filteredProducts = Model.Where(p => p.ProductId == 23 || p.ProductId == 19 || p.ProductId == 21 || p.ProductId == 22).Take(4);
 }
 
 @using Microsoft.AspNetCore.Identity
@@ -45,8 +46,13 @@ else
             </div>
         </div>
         <div class="row justify-content-center">
-            <h1 class="title text-center">Featured Products</h1>
-            @foreach (var product in Model.Take(4))
+            <h1 class="title text-center">Top Products</h1>
+            @if (User.IsInRole("User"))
+            {
+                
+            }
+            else
+            @foreach (var product in filteredProducts)
             {
                 <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id="@product.ProductId" style="text-decoration: none;">
                     <div class="product_img_box">

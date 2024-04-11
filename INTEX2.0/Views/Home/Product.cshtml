@@ -21,7 +21,7 @@
             <p class="price_text">$@Model.Price.00</p>
             <p class="product_subtitle">@Model.ShortDescription</p>
             <form id="@Model.ProductId" method="post" asp-area="Cart" asp-page="/Cart" asp-route-productId="@Model.ProductId">
-                <input name="quantity" type="number" step="1" placeholder="#" min="1" style="text-align: center; width: 3em; border-radius: 1em; margin-right: 2em;">
+                <input name="quantity" type="number" step="1" value="1" min="1" style="text-align: center; width: 3em; border-radius: 1em; margin-right: 2em;">
                 <button type="submit" class="btn btn-primary main_btn">Add to Cart</button>
             </form>
         </div>
