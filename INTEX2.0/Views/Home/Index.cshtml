@@ -4,6 +4,19 @@
 
 @model List<Products>
 
+<script>
+function acceptCookies() {
+    // Hide the cookie popup
+    document.querySelector('.cookie-popup').style.display = 'none';
+    // Optionally, you can perform any additional actions here after accepting cookies
+}
+function rejectCookies() {
+    // Hide the cookie popup
+    document.querySelector('.cookie-popup').style.display = 'none';
+    // Optionally, you can perform any additional actions here after rejecting cookies
+}
+</script>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="hero_box">
@@ -66,6 +79,12 @@
             <p class="category_name">Minifigures</p>
             <p class="category_subtitle">Num Products</p>
         </a>
+    </div>
+
+    <div class="cookie-popup">
+        We use cookies to enhance your experience on our website. By clicking "Accept Cookies", you agree to our use of cookies.
+        <button class="accept-cookies" onclick="acceptCookies()">Accept Cookies</button>
+        <button class="reject-cookies" onclick="rejectCookies()">Reject Cookies</button>
     </div>
     
 </div>
