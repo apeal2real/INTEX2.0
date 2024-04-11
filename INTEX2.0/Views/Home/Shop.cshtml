@@ -16,32 +16,38 @@
             @*     Search *@
             @* </div> *@
             <div class="filter_box">
-                <form>
+                <form method="post" id="filterForm" asp-action="FilteredShop">
                     <div class="form-group">
                         <h1 class="filter_heading">Category</h1>
-                        @foreach (var category in @ViewBag.Categories)
-                        {
-                            <input type="radio" id="@category.CategoryId" name="@category.CategoryName" asp-value="@category.CategoryId">
-                            <label for="@category.CategoryId">@category.CategoryName</label>
-                            <br/>
-                        }
+                        <select id="categoryId" name="categoryId" class="form-control">
+                            <option disabled selected>
+                                All
+                            </option>
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category.CategoryId">@category.CategoryName</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
                         <h1 class="filter_heading">Color</h1>
-                        @foreach (var color in @ViewBag.Colors)
-                        {
-                            <input type="radio" id="@color" name="@color" asp-value="@color">
-                            <label for="@color">@color</label>
-                            <br/>
-                        }
+                        <select id="color" name="color" class="form-control">
+                            <option disabled selected>
+                                All
+                            </option>
+                            @foreach (var color in ViewBag.Colors)
+                            {
+                                <option value="@color">@color</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group mt-3">
-                        <button class="btn btn-primary main_btn">Filter
+                        <button class="btn btn-primary main_btn" type="submit">Filter
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-sliders" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
                             </svg>
                         </button>
-                        <button class="btn btn-primary sub_btn">Reset</button>
+                        <button class="btn btn-primary sub_btn" onclick="clearForm()">Reset</button>
                     </div>
                 </form>
             </div>
@@ -67,3 +73,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    function clearForm() {
+        document.getElementById("filterForm").reset();
+    }
+</script>
