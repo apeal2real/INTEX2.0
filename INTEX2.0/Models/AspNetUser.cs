@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace INTEX2._0.Models;
 
 public partial class AspNetUser
 {
-    public string Id { get; set; } = null!;
+    [Key]
+    public string? Id { get; set; }
 
     public string? UserName { get; set; }
 

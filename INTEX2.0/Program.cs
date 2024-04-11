@@ -12,10 +12,12 @@ public class Program
         var services = builder.Services;
         var configuration = builder.Configuration;
 
-        services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+        
+
+        services.AddAuthentication().AddGoogle(googleOptions =>
         {
-            microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
-            microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+            googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
         });
 
         // Add services to the container.
