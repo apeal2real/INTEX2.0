@@ -33,27 +33,6 @@ namespace INTEX2._0.Controllers
         [HttpPost]
         public IActionResult FilteredShop(int? categoryId, string? color)
         {
-            // int categoryId = _repo.Categories
-            //     .Where(c => c.CategoryName == category)
-            //     .Select(c => c.CategoryId)
-            //     .FirstOrDefault();
-            //
-            // var productIds = _repo.ProductsCategories
-            //     .Where(p => p.CategoryId == categoryId)
-            //     .Select(pc => pc.ProductId)
-            //     .ToList();
-            //
-            // ViewBag.Products = _repo.Products
-            //     .Where(p => productIds.Contains(p.ProductId))
-            //     .ToList();
-
-            // var products = from p in _repo.Products
-            //     join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
-            //     join c in _repo.Categories on pc.CategoryId equals c.CategoryId
-            //     where c.CategoryId == categoryId && p.PrimaryColor == color
-            //     select p;
-            //
-            // var productData = products.ToList();
             var productsQuery = from p in _repo.Products
                 join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
                 join c in _repo.Categories on pc.CategoryId equals c.CategoryId
