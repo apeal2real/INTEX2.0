@@ -2,6 +2,8 @@
     ViewBag.Title = "BrickBlocks";
 }
 
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<Products>
 
 <script>
@@ -17,10 +19,17 @@ function rejectCookies() {
 }
 </script>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="hero_box">
-            <div class="col text_box">
+@if (User.IsInRole("Admin"))
+{
+    Html.RenderPartial("_AdminHomePartial");
+}
+else
+{
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="hero_box">
+                <div class="col text_box">
                     <p class="welcome">WELCOME TO BRICKBLOCKS</p>
                     <h1 class="hero_text">Expand Your Creativity</h1>
                     <a class="btn btn-primary main_btn" asp-controller="Home" asp-action="Shop" style="width: 10em;">
@@ -29,73 +38,74 @@ function rejectCookies() {
                             <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
                         </svg>
                     </a>
-            </div>
-            <div class="col">
-                <img class="hero_img" src="~/img/Rivendell.png" alt="Rivendell lego set"/>
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <h1 class="title text-center">Featured Products</h1>
-        @foreach (var product in Model.Take(4))
-        {
-            <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id="@product.ProductId" style="text-decoration: none;">
-                <div class="product_img_box">
-                    <img class="product_img" src="@product.ImgLink"/>
                 </div>
-                <p class="product_name">@product.Name</p>
-                <p class="product_price">$@product.Price.00</p>
-            </a>
-        }
-    </div>
-    <div class="row justify-content-center">
-        <h1 class="title text-center" style="margin-top: 1em;">Top Categories</h1>
-        <div class="col-md-3">
-            <form method="post" asp-controller="Home" asp-action="FilteredShop" asp-route-categoryId="1">
-                <button class="category_box btn" type="submit">
-                    <div class="category_img_box" style="width: 5em;">
-                        <img class="category_img" src="~/img/star_wars.png" alt="star wars logo"/>
-                    </div>
-                    <p class="category_name">Star Wars</p>
-                </button>
-            </form>
+                <div class="col">
+                    <img class="hero_img" src="~/img/Rivendell.png" alt="Rivendell lego set"/>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3">
-            <form method="post" asp-controller="Home" asp-action="FilteredShop" asp-route-categoryId="9">
-                <button class="category_box btn" type="submit">
-                    <div class="category_img_box" style="width: 5em;">
-                        <img class="category_img" src="~/img/vehicle.png" alt="lego vehicle logo"/>
+        <div class="row justify-content-center">
+            <h1 class="title text-center">Featured Products</h1>
+            @foreach (var product in Model.Take(4))
+            {
+                <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id="@product.ProductId" style="text-decoration: none;">
+                    <div class="product_img_box">
+                        <img class="product_img" src="@product.ImgLink"/>
                     </div>
-                    <p class="category_name">Vehicles</p>
-                </button>
-            </form>
+                    <p class="product_name">@product.Name</p>
+                    <p class="product_price">$@product.Price.00</p>
+                </a>
+            }
         </div>
-        <div class="col-md-3">
-            <form method="post" asp-controller="Home" asp-action="FilteredShop" asp-route-categoryId="18">
-                <button class="category_box btn" type="submit">
-                    <div class="category_img_box" style="width: 5em;">
-                        <img class="category_img" src="~/img/disney_icon.png" alt="disney icon"/>
-                    </div>
-                    <p class="category_name">Disney</p>
-                </button>
-            </form>
+        <div class="row justify-content-center">
+            <h1 class="title text-center" style="margin-top: 1em;">Top Categories</h1>
+            <div class="col-md-3">
+                <form method="post" asp-controller="Home" asp-action="FilteredShop" asp-route-categoryId="1">
+                    <button class="category_box btn" type="submit">
+                        <div class="category_img_box" style="width: 5em;">
+                            <img class="category_img" src="~/img/star_wars.png" alt="star wars logo"/>
+                        </div>
+                        <p class="category_name">Star Wars</p>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-3">
+                <form method="post" asp-controller="Home" asp-action="FilteredShop" asp-route-categoryId="9">
+                    <button class="category_box btn" type="submit">
+                        <div class="category_img_box" style="width: 5em;">
+                            <img class="category_img" src="~/img/vehicle.png" alt="lego vehicle logo"/>
+                        </div>
+                        <p class="category_name">Vehicles</p>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-3">
+                <form method="post" asp-controller="Home" asp-action="FilteredShop" asp-route-categoryId="18">
+                    <button class="category_box btn" type="submit">
+                        <div class="category_img_box" style="width: 5em;">
+                            <img class="category_img" src="~/img/disney_icon.png" alt="disney icon"/>
+                        </div>
+                        <p class="category_name">Disney</p>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-3">
+                <form method="post" asp-controller="Home" asp-action="FilteredShop" asp-route-categoryId="11">
+                    <button class="category_box btn" type="submit">
+                        <div class="category_img_box" style="width: 5em;">
+                            <img class="category_img" src="~/img/lego_head.png" alt="lego minifigure head"/>
+                        </div>
+                        <p class="category_name">Minifigure</p>
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="col-md-3">
-            <form method="post" asp-controller="Home" asp-action="FilteredShop" asp-route-categoryId="11">
-                <button class="category_box btn" type="submit">
-                    <div class="category_img_box" style="width: 5em;">
-                        <img class="category_img" src="~/img/lego_head.png" alt="lego minifigure head"/>
-                    </div>
-                    <p class="category_name">Minifigure</p>
-                </button>
-            </form>
-        </div>
-    </div>
 
-    <div class="cookie-popup">
-        We use cookies to enhance your experience on our website. By clicking "Accept Cookies", you agree to our use of cookies.
-        <button class="accept-cookies" onclick="acceptCookies()">Accept Cookies</button>
-        <button class="reject-cookies" onclick="rejectCookies()">Reject Cookies</button>
+        <div class="cookie-popup">
+            We use cookies to enhance your experience on our website. By clicking "Accept Cookies", you agree to our use of cookies.
+            <button class="accept-cookies" onclick="acceptCookies()">Accept Cookies</button>
+            <button class="reject-cookies" onclick="rejectCookies()">Reject Cookies</button>
+        </div>
+
     </div>
-    
-</div>
+}

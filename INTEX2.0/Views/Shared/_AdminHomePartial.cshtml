@@ -1,0 +1,17 @@
+@{
+    string username = User.Identity?.Name!;
+    int pos = username.IndexOf("@");
+}
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 3em;">
+        <div class="col-md-5">
+            <h1 class="title" style="margin-bottom: 2em;">Welcome, @username.Substring(0, pos)</h1>
+            <p>This is your admin portal where you can:</p>
+            <ul>
+                <li>Review orders for potentially fraudulent activity</li>
+                <li>Add, edit, or delete products</li>
+                <li>Add, edit, or delete users</li>
+            </ul>
+        </div>
+    </div>
+</div>
