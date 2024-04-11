@@ -71,5 +71,21 @@ namespace INTEX2._0.Controllers
             return RedirectToAction("Users");
         }
 
+        [HttpGet]
+        public IActionResult RemoveUser(string id) //This Get method retrieves a confirmation page for the deletion of a record
+        {
+            // ViewBag.Tasks = _repo.Tasks.ToList();
+            var recordToDelete = _usersRepo.AspNetUsers
+                .Single(x => x.Id == id);
+
+            return View("Confirmation", recordToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveUser(AspNetUser deleted) //This Post Method deletes a task from the database
+        {
+            _usersRepo.RemoveUser(deleted);
+            return RedirectToAction("Users");
+        }
     }
 }

@@ -47,6 +47,11 @@
                         Edit
                     </a>
                 </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Admin" asp-action="RemoveUser" asp-route-id="@user.UserID">
+                        Delete
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
