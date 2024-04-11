@@ -22,7 +22,7 @@ public class CartModel : PageModel
         Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
     }
 
-    public void OnPost(int productId)
+    public void OnPost(int productId, int quantity)
     {
         Products prod = _repo.Products
             .FirstOrDefault(x => x.ProductId == productId);
@@ -30,7 +30,7 @@ public class CartModel : PageModel
         if (prod != null)
         {
             Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-            Cart.AddItem(prod, 1);
+            Cart.AddItem(prod, quantity);
             HttpContext.Session.SetJson("cart", Cart);
         }
     }

@@ -6,16 +6,22 @@
 
 <div class="container">
     <div class="row justify-content-center" style="margin-top: 5em;">
+        <div class="col-md-1 d-flex justify-content-end">
+            <a class="btn" asp-controller="Home" asp-action="Shop" style="height: 3em;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                </svg>
+            </a>
+        </div>
         <div class="col-md-4 d-flex justify-content-center" style="margin-top: 1em;">
-            <img class="product_img_box" src="@Model.ImgLink" alt="Image of @Model.Name" />
+            <img class="product_img_box" src="@Model.ImgLink" alt="Image of @Model.Name"/>
         </div>
         <div class="col-md-5">
-            <h1>@Model.Name</h1>
+            <h1 style="margin-right: 1em;">@Model.Name</h1>
             <p class="price_text">$@Model.Price.00</p>
             <p class="product_subtitle">@Model.ShortDescription</p>
-            @* TODO: add quantity button, change cart to accept quantity and product id *@
-            @* <input value="quantity" type="number" step="1" placeholder="#"> *@
             <form id="@Model.ProductId" method="post" asp-area="Cart" asp-page="/Cart" asp-route-productId="@Model.ProductId">
+                <input name="quantity" type="number" step="1" placeholder="#" min="1" style="text-align: center; width: 3em; border-radius: 1em; margin-right: 2em;">
                 <button type="submit" class="btn btn-primary main_btn">Add to Cart</button>
             </form>
         </div>
@@ -29,7 +35,8 @@
             <p class="shop_text m-4" >@Model.Description</p>
         </div>
         <div class="col-md-10 product_btn" id="customerReviewsSection" hidden>
-            <p class="shop_text m-4">List reviews from LineItems table here</p>
+            @* TODO: List reviews from LineItems table here *@
+            <p class="shop_text m-4">Reviews</p>
         </div>
     </div>
 </div>
