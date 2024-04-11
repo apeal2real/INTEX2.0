@@ -10,5 +10,8 @@
         List<ProductsCategory> ProductsCategories { get; }
         List<Recommendation> Recommendations { get; }
         List<ProductRecommendation> ProductRecommendations { get; }
+
+        public void AddOrder(Order order);
+        public void AddLineItem(LineItem lineItem);
     }
 }
