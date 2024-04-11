@@ -6,41 +6,45 @@
     Layout = "_Layout";
 }
 @model UpdateUserViewModel
-<h1 class="bg-info text-white">Edit User</h1>
-<a asp-action="Users" class="btn btn-secondary">Back</a>
-<div asp-validation-summary="All" class="text-danger"></div>
+<div class="row">
+    <h1 class="title text-center" style="margin-bottom: 1em;">Edit User</h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-10 form_box">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form method="post">
+            <!-- Hidden field to send the UserId along with the form submission -->
+            <input type="hidden" asp-for="@Model.UserID"/>
 
-<form method="post">
-    <!-- Hidden field to send the UserId along with the form submission -->
-    <input type="hidden" asp-for="@Model.UserID" />
+            <div class="form-group">
+                <label asp-for="@Model.UserName">Username:</label>
+                <input asp-for="@Model.UserName" class="form-control"/>
+                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="@Model.UserName">Username:</label>
-        <input asp-for="@Model.UserName" class="form-control" />
-        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+            <div class="form-group">
+                <!-- Dropdown for selecting role -->
+                <label asp-for="@Model.RoleName">Role:</label><br>
+                <select asp-for="@Model.RoleName" id="@Model.RoleName" name="@Model.RoleName" required>
+                    @if (Model.RoleName == "Admin")
+                    {
+                        <option value="Admin">Admin</option>
+                        <option value="User">User</option>
+                    }
+                    else
+                    {
+                        <option value="User">User</option>
+                        <option value="Admin">Admin</option>
+                    }
+                </select><br><br>
+            </div>
+
+            <button type="submit" class="btn btn-primary main_btn">Submit</button>
+            <a asp-action="Users" class="btn btn-secondary sub_btn">Back</a>
+
+            <!-- Display validation errors if any -->
+            <div asp-validation-summary="All"></div>
+        </form>
     </div>
-
-    <div class="form-group">
-        <!-- Dropdown for selecting role -->
-        <label asp-for="@Model.RoleName">Role:</label><br>
-        <select asp-for="@Model.RoleName" id="@Model.RoleName" name="@Model.RoleName" required>
-            @if (Model.RoleName == "Admin")
-            {
-                <option value="Admin">Admin</option>
-                <option value="User">User</option>
-            }
-            else
-            {
-                <option value="User">User</option>
-                <option value="Admin">Admin</option>
-            }
-        </select><br><br>
-    </div>
-
-    <br />
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-    <!-- Display validation errors if any -->
-    <div asp-validation-summary="All"></div>
-</form>
+   
+</div>

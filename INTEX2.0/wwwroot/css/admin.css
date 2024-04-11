@@ -69,6 +69,21 @@
     color: #20B526;
 }
 
+.table_heading {
+    color: #4D4D4D;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 0.75rem */
+    letter-spacing: 0.0225rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.thead_row {
+    background: #F2F2F2;
+}
+
 /* ADD / EDIT PAGES */
 .input-lg {
     display: flex;
@@ -92,23 +107,10 @@
 }
 
 .form_box {
-    width: 61.5rem;
-    height: 33.5rem;
     border-radius: 0.5rem;
     border: 1px solid #E6E6E6;
-}
-
-.table_heading {
-    color: #4D4D4D;
-    font-size: 0.75rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 100%; /* 0.75rem */
-    letter-spacing: 0.0225rem;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.thead_row {
-    background: #F2F2F2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
 }
