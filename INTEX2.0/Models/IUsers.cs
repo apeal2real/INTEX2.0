@@ -15,5 +15,9 @@ namespace INTEX2._0.Models
         List<AspNetUserLogin> AspNetUserLogins { get; }
 
         List<AspNetUserToken> AspNetUserTokens { get; }
+        List<AspNetUserRole> AspNetUserRoles { get; }
+        public void RemoveUser(AspNetUser user);
+        public void UpdateUser(AspNetUser user);
+        public void AddUser(AspNetUser user);
     }
 }

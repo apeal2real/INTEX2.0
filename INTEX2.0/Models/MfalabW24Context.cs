@@ -26,6 +26,7 @@ public partial class MfalabW24Context : DbContext
     public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
 
     public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
+    public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -51,17 +52,17 @@ public partial class MfalabW24Context : DbContext
 
             entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex").IsUnique();
 
-            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "AspNetUserRole",
-                    r => r.HasOne<AspNetRole>().WithMany().HasForeignKey("RoleId"),
-                    l => l.HasOne<AspNetUser>().WithMany().HasForeignKey("UserId"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "RoleId");
-                        j.ToTable("AspNetUserRoles");
-                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
-                    });
+            //entity.HasMany(d => d.Roles).WithMany(p => p.Users)
+            //    .UsingEntity<Dictionary<string, object>>(
+            //        "AspNetUserRole",
+            //        r => r.HasOne<AspNetRole>().WithMany().HasForeignKey("RoleId"),
+            //        l => l.HasOne<AspNetUser>().WithMany().HasForeignKey("UserId"),
+            //        j =>
+            //        {
+            //            j.HasKey("UserId", "RoleId");
+            //            j.ToTable("AspNetUserRoles");
+            //            j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
+            //        });
         });
 
         modelBuilder.Entity<AspNetUserClaim>(entity =>
@@ -85,6 +86,16 @@ public partial class MfalabW24Context : DbContext
             entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
 
             entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserRole>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.RoleId });
+
+            entity.ToTable("AspNetUserRoles");
+
+            entity.Property(e => e.UserId).HasColumnName("UserId");
+            entity.Property(e => e.RoleId).HasColumnName("RoleId");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,0 +1,27 @@
+@* 
+This view displays a confirmation message asking ther user if they would like to confirm
+theat they want to delete the task they selected
+There are two button options: Delete or Cancel
+*@
+
+@model AspNetUser
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Confirmation page</h2>
+            <p>Are you sure you want to delete "<b>@Model.UserName</b>?"</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form method="post">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a class="btn btn-info" asp-controller="Admin" asp-action="Users">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
