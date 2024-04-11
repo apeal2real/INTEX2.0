@@ -42,7 +42,6 @@
 
   <ItemGroup>
     <AdditionalFiles Include="Areas\Cart\Pages\Cart.cshtml" />
-    <AdditionalFiles Include="Areas\Cart\Pages\_CartLayout.cshtml" />
     <AdditionalFiles Include="Areas\Cart\Pages\_ViewImports.cshtml" />
     <AdditionalFiles Include="Areas\Cart\Pages\_ViewStart.cshtml" />
 

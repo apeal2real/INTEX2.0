@@ -31,9 +31,58 @@ namespace INTEX2._0.Controllers
         }
 
         [HttpPost]
-        // public IActionResult ShopFilter(string category, string color)
-        // {
-        // }
+        public IActionResult FilteredShop(int? categoryId, string? color)
+        {
+            // int categoryId = _repo.Categories
+            //     .Where(c => c.CategoryName == category)
+            //     .Select(c => c.CategoryId)
+            //     .FirstOrDefault();
+            //
+            // var productIds = _repo.ProductsCategories
+            //     .Where(p => p.CategoryId == categoryId)
+            //     .Select(pc => pc.ProductId)
+            //     .ToList();
+            //
+            // ViewBag.Products = _repo.Products
+            //     .Where(p => productIds.Contains(p.ProductId))
+            //     .ToList();
+
+            // var products = from p in _repo.Products
+            //     join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
+            //     join c in _repo.Categories on pc.CategoryId equals c.CategoryId
+            //     where c.CategoryId == categoryId && p.PrimaryColor == color
+            //     select p;
+            //
+            // var productData = products.ToList();
+            var productsQuery = from p in _repo.Products
+                join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
+                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
+                select new { Product = p, Category = c };
+
+            if (categoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(x => x.Category.CategoryId == categoryId);
+            }
+
+            if (!string.IsNullOrEmpty(color))
+            {
+                productsQuery = productsQuery.Where(x => x.Product.PrimaryColor == color || x.Product.SecondaryColor == color);
+            }
+
+            var productQueryCleaned = productsQuery.Select(x => x.Product).DistinctBy(x => x.ProductId);
+            var productData = productQueryCleaned.ToList();
+            
+            string? category = _repo.Categories
+                .Where(c => c.CategoryId == categoryId)
+                .Select(c => c.CategoryName)
+                .FirstOrDefault();
+
+            ViewBag.Products = productData;
+            ViewBag.Category = category;
+            ViewBag.Color = color;
+
+            return View();
+        }
 
         public IActionResult Product(int id)
         {
