@@ -40,7 +40,17 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Users">Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login/Logout</a>
+                                @{
+                                    string username = User.Identity?.Name!;
+                                    int pos = username.IndexOf("@");
+                                }
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                    </svg>
+                                    @username.Substring(0, pos)
+                                </a>
                             </li>
                         } else
                         {
@@ -50,11 +60,47 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                             </li>
+                            @* @if (SignInManager.IsSignedIn(User)) *@
+                            @* { *@
+                            @*     <li class="nav-item"> *@
+                            @*         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout">Logout</a> *@
+                            @*     </li> *@
+                            @* } *@
+                            @* else *@
+                            @* { *@
+                            @*     <li class="nav-item"> *@
+                            @*         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a> *@
+                            @*     </li> *@
+                            @* } *@
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    @{
+                                        string username = User.Identity?.Name!;
+                                        int pos = username.IndexOf("@");
+                                    }
+                                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                        </svg>
+                                        @username.Substring(0, pos)
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                </li>
+                            }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Cart">Cart</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login/Logout</a>
+                                <a class="nav-link text-dark" asp-area="Cart" asp-page="/Cart">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                                    </svg>
+                                    <span>0</span>
+                                </a>
                             </li>
                         }
                     </ul>
@@ -70,9 +116,9 @@
 
     @if (!User.IsInRole("Admin"))
     {
-        <footer class="footer row align-content-center">
+        <footer class="footer row align-content-center" style="z-index: 1;">
             <div class="col-md-4">
-                <img class="nav-logo" src="~/img/intex_logo.png" alt="brick blocks logo" style="width: 90%; height: auto;"/>
+                <img class="nav-logo" src="~/img/white_intex_logo.png" alt="brick blocks logo" style="width: 90%; height: auto;"/>
             </div>
             <div class="col-md-2 footer_col">
                 <p class="footer_header">About BrickBlocks</p>

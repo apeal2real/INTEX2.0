@@ -61,3 +61,51 @@ html {
   border-color: #FD6F6F;
   background: #FD6F6F;
 }
+
+.cookie-popup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    text-align: center;
+    z-index: 1000;
+    font-family: "Poppins", sans-serif;
+}
+
+.cookie-popup p {
+    margin-bottom: 20px;
+}
+
+.cookie-popup button {
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #00B207; /* Accept button color */
+    color: #fff; /* Text color */
+}
+
+    .cookie-popup button.accept-cookies {
+        background-color: #00B207; /* Accept button color */
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 8px;
+    }
+
+    .cookie-popup button.reject-cookies {
+        background-color: white; /* Reject button color */
+        color: #00B207;
+        border: 1px solid #000;
+    }
+
+    .cookie-popup button.accept-cookies:hover {
+        background-color: #008A05; /* Darker shade on hover */
+    }
+
+    .cookie-popup button.reject-cookies:hover {
+        background-color: #F5F5F5; /* Darker shade on hover */
+    }
