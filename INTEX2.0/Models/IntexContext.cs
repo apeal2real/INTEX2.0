@@ -15,21 +15,21 @@ public partial class IntexContext : DbContext
     {
     }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public DbSet<Customer> Customers { get; set; }
 
-    public virtual DbSet<LineItem> LineItems { get; set; }
+    public DbSet<LineItem> LineItems { get; set; }
 
-    public virtual DbSet<Order> Orders { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<Products> Products { get; set; }
+    public DbSet<Products> Products { get; set; }
 
-    public virtual DbSet<ProductRecommendation> ProductRecommendations { get; set; }
+    public DbSet<ProductRecommendation> ProductRecommendations { get; set; }
 
-    public virtual DbSet<ProductsCategory> ProductsCategories { get; set; }
+    public DbSet<ProductsCategory> ProductsCategories { get; set; }
 
-    public virtual DbSet<Recommendation> Recommendations { get; set; }
+    public DbSet<Recommendation> Recommendations { get; set; }
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -44,37 +44,38 @@ public partial class IntexContext : DbContext
                 .HasColumnName("category_ID");
             entity.Property(e => e.CategoryName).HasColumnName("category_name");
         });
-    
+
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.Property(e => e.CustomerId)
-                .ValueGeneratedNever()
-                .HasColumnName("customer_ID");
+            entity.HasIndex(e => e.CustomerId, "IX_Customers_customer_ID").IsUnique();
+
+            entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.BirthDate).HasColumnName("birth_date");
             entity.Property(e => e.CountryOfResidence).HasColumnName("country_of_residence");
+            entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.FirstName).HasColumnName("first_name");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.LastName).HasColumnName("last_name");
         });
-    
+
         modelBuilder.Entity<LineItem>(entity =>
         {
             entity.HasKey(e => new { e.TransactionId, e.ProductId });
-    
+
             entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
             entity.Property(e => e.ProductId).HasColumnName("product_ID");
             entity.Property(e => e.Qty).HasColumnName("qty");
             entity.Property(e => e.Rating).HasColumnName("rating");
         });
-    
+
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.TransactionId);
-    
-            entity.Property(e => e.TransactionId)
-                .ValueGeneratedNever()
-                .HasColumnName("transaction_ID");
+
+            entity.HasIndex(e => e.TransactionId, "IX_Orders_transaction_ID").IsUnique();
+
+            entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.Bank).HasColumnName("bank");
             entity.Property(e => e.CountryOfTransaction).HasColumnName("country_of_transaction");
@@ -88,7 +89,7 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.TypeOfCard).HasColumnName("type_of_card");
             entity.Property(e => e.TypeOfTransaction).HasColumnName("type_of_transaction");
         });
-    
+
         modelBuilder.Entity<Products>(entity =>
         {
             entity.Property(e => e.ProductId)
@@ -120,9 +121,9 @@ public partial class IntexContext : DbContext
         modelBuilder.Entity<ProductsCategory>(entity =>
         {
             entity.HasKey(e => new { e.CategoryId, e.ProductId });
-    
+
             entity.ToTable("Products_Categories");
-    
+
             entity.Property(e => e.CategoryId).HasColumnName("category_ID");
             entity.Property(e => e.ProductId).HasColumnName("product_ID");
         });
