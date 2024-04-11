@@ -13,5 +13,6 @@
 
         public void AddOrder(Order order);
         public void AddLineItem(LineItem lineItem);
+        public void AddCustomer(Customer customer);
     }
 }

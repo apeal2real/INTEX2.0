@@ -1,4 +1,8 @@
-﻿@page
+﻿
+@page
+@{
+    var customer = Model.Customer;
+}
 @model CustomerModel
 @{
     ViewData["Title"] = "Register";
@@ -12,42 +16,68 @@
                 <section>
                     <form id="profile" method="post" asp-page-handler="OnPost">
                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                        <div class="form-floating mb-3 form-group">
-                            <input type="text" class="form-control" aria-required="true" placeholder="First Name"/>
-                            <label class="form-label">First Name</label>
+                        <div class="form-group register_form">
+                            @* <label class="form-label" asp-for="@customer.FirstName">First Name</label> *@
+                            <input type="text" class="form-control" aria-required="true" placeholder="First Name" asp-for="@customer.FirstName"/>
                             <span class="text-danger"></span>
                         </div>
-                        <div class="form-floating mb-3 form-group">
-                            <input type="text" class="form-control" aria-required="true" placeholder="Last Name"/>
-                            <label class="form-label">Last Name</label>
+                        <div class="form-group register_form">
+                            @* <label class="form-label" asp-for="@customer.LastName">Last Name</label> *@
+                            <input class="form-control" aria-required="true" placeholder="Last Name" asp-for="@customer.LastName"/>
                             <span class="text-danger"></span>
                         </div>
-                        <div class="form-floating mb-3 form-group">
-                            <input type="date" class="form-control" aria-required="true" placeholder="Birth Date"/>
-                            <label class="form-label">Birth Date</label>
-                            <span class="text-danger"></span>
+                        <div class="form-group register_form">
+                            @* <label class="form-label" asp-for="@customer.BirthDate">Birth Date</label> *@
+                            <input class="form-control" aria-required="true" placeholder="Birth Date" asp-for="@customer.BirthDate"/><span class="text-danger"></span>
                         </div>
-                        <div class="form-floating mb-3 form-group">
-                            <select class="form-control" aria-required="true" id="gender" name="gender">
+                        <div class="form-group register_form">
+                            @* <label class="form-label" asp-for="@customer.Gender">Gender</label> *@
+                            <select class="form-control" aria-required="true"asp-for="@customer.Gender">
                                 <option disabled selected>Select your gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
                             </select>
-                            @* <label asp-for="" class="form-label">Gender</label> *@
                             <span class="text-danger"></span>
                         </div>
-                        <div class="form-floating mb-3 form-group">
-                            <input type="number" class="form-control" aria-required="true" placeholder="Age"/>
-                            <label class="form-label">Age</label>
+                        <div class="form-group register_form">
+                            @* <label class="form-label" asp-for="@customer.Age">Age</label> *@
+                            <input type="number" class="form-control" aria-required="true" placeholder="Age" asp-for="@customer.Age"/>
                             <span class="text-danger"></span>
                         </div>
-                        <div class="form-floating mb-3 form-group">
-                            <input type="text" class="form-control" aria-required="true" placeholder="Age"/>
-                            <label class="form-label">Country of Residence</label>
+                        <div class="form-group register_form">
+                            @* <label class="form-label">Email</label> *@
+                            <input type="text" class="form-control" aria-required="true" placeholder="Email" asp-for="@customer.Email"/>
                             <span class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group register_form">
+                            @* <label class="form-label" asp-for="@customer.CountryOfResidence">Country of Residence</label> *@
+                            <select asp-for="@customer.CountryOfResidence" class="form-control">
+                                <option value="" disabled selected>Select country</option>
+                                <option value="United States">United States</option>
+                                <option value="China">China</option>
+                                <option value="India">India</option>
+                                <option value="Brazil">Brazil</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Russia">Russia</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Australia">Australia</option>
+                                <option value="South Korea">South Korea</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Spain">Spain</option>
+                                <option value="Mexico">Mexico</option>
+                                <option value="Indonesia">Indonesia</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                <option value="Turkey">Turkey</option>
+                                <option value="Switzerland">Switzerland</option>
+                            </select>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="margin-top: 1em">
                             <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary main_btn">Finish Profile</button>
                         </div>
                     </form>

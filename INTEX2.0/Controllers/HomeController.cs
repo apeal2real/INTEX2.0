@@ -80,31 +80,25 @@ namespace INTEX2._0.Controllers
         }
         public IActionResult OrderConfirm()
         {
-            // var cart = TempData["Cart"] as Cart;
-            // Dictionary<int, int> productQuantities = new Dictionary<int, int>();
-            //
-            // foreach (var line in cart.Lines)
-            // {
-            //     // Retrieve the product ID directly from the line
-            //     int productId = (int)line.Products.ProductId;
-            //     int quantity = line.Quantity;
-            //
-            //     // Add the product ID and quantity to the dictionary
-            //     productQuantities.TryAdd(productId, quantity);
-            //
-            // }
-            //
-            // TempData["ProductDict"] = productQuantities;
-            // var cartDict = TempData["CartData"];
-            // ViewBag.CartDict = cartDict;
-            // Retrieve the serialized JSON data from TempData
             string serializedData = TempData["CartData"] as string;
 
             // Deserialize the JSON data back to a dictionary
             Dictionary<int, int> cartData = JsonConvert.DeserializeObject<Dictionary<int, int>>(serializedData);
             ViewBag.CartDict = cartData;
+
+            List<int> productIds = new List<int>();
+            foreach (var line in cartData)
+            {
+                productIds.Add(line.Key);
+            }
+
+            var products = _repo.Products
+                .Where(p => productIds.Contains(p.ProductId))
+                .ToList();
+
+            ViewBag.OrderNum = TempData["OrderNum"];
             
-            return View();
+            return View(products);
         }
         
         [HttpGet]
@@ -115,6 +109,14 @@ namespace INTEX2._0.Controllers
             decimal total = JsonConvert.DeserializeObject<decimal>(serializedTotal);
             int intTotal = (int)total;
             ViewBag.CartTotal = intTotal;
+            
+            string username = User.Identity?.Name!;
+            var customer = _repo.Customers
+                .Where(c => c.Email == username)
+                .FirstOrDefault();
+
+            ViewBag.cId = customer.CustomerId;
+            
             return View();
         }
 
@@ -122,7 +124,8 @@ namespace INTEX2._0.Controllers
         public IActionResult Checkout(Order order)
         {
             _repo.AddOrder(order);
-            return RedirectToAction("Index");
+            TempData["OrderNum"] = order.TransactionId;
+            return RedirectToAction("OrderConfirm");
         }
     }
 }

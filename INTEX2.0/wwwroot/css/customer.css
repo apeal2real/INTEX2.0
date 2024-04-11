@@ -304,6 +304,10 @@ a {
     margin-bottom: 1em;
 }
 
+.register_form {
+    margin-bottom: 2em;
+}
+
 /* -------- FOOTER -------- */
 .footer {
     padding: 2em;
