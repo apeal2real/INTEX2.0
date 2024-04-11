@@ -14,6 +14,14 @@ public class Program
         var services = builder.Services;
         var configuration = builder.Configuration;
 
+        // Create a new SecretClient to retrieve secrets from Azure Key Vault
+        var keyVaultUri = new Uri("https://brickblockssecrets.vault.azure.net/");
+        var credential = new DefaultAzureCredential();
+        var secretClient = new SecretClient(vaultUri: keyVaultUri, credential: credential);
+
+        // Retrieve secrets from Azure Key Vault
+        var clientId = (await secretClient.GetSecretAsync("GoogleClientID")).Value.Value;
+        var clientSecret = (await secretClient.GetSecretAsync("GoogleClientSecret")).Value.Value;
 
         //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
         //{
@@ -23,8 +31,8 @@ public class Program
 
         services.AddAuthentication().AddGoogle(googleOptions =>
         {
-            googleOptions.ClientId = configuration["Authentication:Google:ClientId2"];
-            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret2"];
+            googleOptions.ClientId = clientId /*configuration["Authentication:Google:ClientId2"]*/;
+            googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
         });
 
         // Add services to the container.
