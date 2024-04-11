@@ -3,6 +3,8 @@ using INTEX2._0.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 public class Program
 {
@@ -12,12 +14,17 @@ public class Program
         var services = builder.Services;
         var configuration = builder.Configuration;
 
-        
+
+        //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+        //{
+        //    microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+        //    microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+        //});
 
         services.AddAuthentication().AddGoogle(googleOptions =>
         {
-            googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            googleOptions.ClientId = configuration["Authentication:Google:ClientId2"];
+            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret2"];
         });
 
         // Add services to the container.
