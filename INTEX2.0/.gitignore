@@ -1,6 +1,8 @@
 # ignore db files
 *.db-shm
 *.db-wal
+MFALabW24.db
+INTEX.sqlite
 
 # ignore rider settings
 ../.idea/
