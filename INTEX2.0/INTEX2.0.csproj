@@ -11,6 +11,8 @@
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.11.0" />
     <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.6.0" />
+    <PackageReference Include="Azure.Identity" Version="1.11.0" />
+    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
@@ -35,12 +37,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Cart\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Areas\Cart\Pages\Cart.cshtml" />
+    <AdditionalFiles Include="Areas\Cart\Pages\_CartLayout.cshtml" />
+    <AdditionalFiles Include="Areas\Cart\Pages\_ViewImports.cshtml" />
+    <AdditionalFiles Include="Areas\Cart\Pages\_ViewStart.cshtml" />
+
     <None Update="INTEX.sqlite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="MFALabW24.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    
   </ItemGroup>
 
 </Project>

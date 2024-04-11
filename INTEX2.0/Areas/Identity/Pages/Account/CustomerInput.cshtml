@@ -1,0 +1,63 @@
+﻿@page
+@model CustomerModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container">
+    <div class="row align-content-center">
+        <div class="col d-flex justify-content-center">
+            <div class="customer_box">
+                <h1 class="title">Create Profile</h1>
+                <section>
+                    <form id="profile" method="post" asp-page-handler="OnPost">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="form-floating mb-3 form-group">
+                            <input type="text" class="form-control" aria-required="true" placeholder="First Name"/>
+                            <label class="form-label">First Name</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3 form-group">
+                            <input type="text" class="form-control" aria-required="true" placeholder="Last Name"/>
+                            <label class="form-label">Last Name</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3 form-group">
+                            <input type="date" class="form-control" aria-required="true" placeholder="Birth Date"/>
+                            <label class="form-label">Birth Date</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3 form-group">
+                            <select class="form-control" aria-required="true" id="gender" name="gender">
+                                <option disabled selected>Select your gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            @* <label asp-for="" class="form-label">Gender</label> *@
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3 form-group">
+                            <input type="number" class="form-control" aria-required="true" placeholder="Age"/>
+                            <label class="form-label">Age</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3 form-group">
+                            <input type="text" class="form-control" aria-required="true" placeholder="Age"/>
+                            <label class="form-label">Country of Residence</label>
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary main_btn">Finish Profile</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
+

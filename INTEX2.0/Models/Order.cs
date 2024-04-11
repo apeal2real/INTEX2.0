@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace INTEX2._0.Models;
 
 public partial class Order
 {
+    [Key]
     public int TransactionId { get; set; }
-
+    
+    [ForeignKey("Customer")]
     public int? CustomerId { get; set; }
+    public virtual Customer Customer { get; set; }
 
     public string? Date { get; set; }
 
