@@ -105,5 +105,18 @@ namespace INTEX2._0.Controllers
             _usersRepo.RemoveUser(deleted);
             return RedirectToAction("Users");
         }
+
+        [HttpGet]
+        public IActionResult AddEdit() //This action returns the UpdateUser page but doesn't populate it with any data
+        {
+            return View("UpdateUser");
+        }
+
+        [HttpPost]
+        public IActionResult AddEdit(AspNetUser response) //This Post method allows the user to add a task and saves it
+        {
+            _usersRepo.AddUser(response); //add record to database
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -39,5 +39,11 @@ namespace INTEX2._0.Models
             _context.AspNetUsers.Update(user);
             _context.SaveChanges();
         }
+
+        public void AddUser(AspNetUser user)
+        {
+            _context.AspNetUsers.Add(user);
+            _context.SaveChanges();
+        }
     }
 }

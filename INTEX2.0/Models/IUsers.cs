@@ -18,5 +18,6 @@ namespace INTEX2._0.Models
         List<AspNetUserRole> AspNetUserRoles { get; }
         public void RemoveUser(AspNetUser user);
         public void UpdateUser(AspNetUser user);
+        public void AddUser(AspNetUser user);
     }
 }
