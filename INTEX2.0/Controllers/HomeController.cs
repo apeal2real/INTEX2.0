@@ -66,10 +66,11 @@ namespace INTEX2._0.Controllers
 
             if (!string.IsNullOrEmpty(color))
             {
-                productsQuery = productsQuery.Where(x => x.Product.PrimaryColor == color);
+                productsQuery = productsQuery.Where(x => x.Product.PrimaryColor == color || x.Product.SecondaryColor == color);
             }
 
-            var productData = productsQuery.Select(x => x.Product).ToList();
+            var productQueryCleaned = productsQuery.Select(x => x.Product).DistinctBy(x => x.ProductId);
+            var productData = productQueryCleaned.ToList();
             
             string? category = _repo.Categories
                 .Where(c => c.CategoryId == categoryId)

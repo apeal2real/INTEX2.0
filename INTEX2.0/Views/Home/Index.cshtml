@@ -26,13 +26,12 @@
         <h1 class="title text-center">Featured Products</h1>
         @foreach (var product in Model.Take(4))
         {
-            <a class="product_box" asp-controller="Home" asp-action="Product" style="text-decoration: none;">
+            <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id="@product.ProductId" style="text-decoration: none;">
                 <div class="product_img_box">
                     <img class="product_img" src="@product.ImgLink"/>
                 </div>
                 <p class="product_name">@product.Name</p>
                 <p class="product_price">$@product.Price.00</p>
-                @* TODO: add cart icon here *@
             </a>
         }
     </div>

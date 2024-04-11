@@ -4,10 +4,45 @@
 
 @model Products
 
-<h1>@Model.Name</h1>
-<subtitle>@Model.Price</subtitle>
-<br/>
-<form id="@Model.ProductId" method="post" asp-page="/Cart" asp-route-productId="@Model.ProductId">
-    @* <input type="hidden" asp-route="@Model.ProductIdPk" /> *@
-    <button type="submit" class="btn btn-primary main_btn">Add to Cart</button>
-</form>
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 5em;">
+        <div class="col-md-4 d-flex justify-content-center" style="margin-top: 1em;">
+            <img class="product_img_box" src="@Model.ImgLink" alt="Image of @Model.Name" />
+        </div>
+        <div class="col-md-5">
+            <h1>@Model.Name</h1>
+            <p class="price_text">$@Model.Price.00</p>
+            <p class="product_subtitle">@Model.ShortDescription</p>
+            @* TODO: add quantity button, change cart to accept quantity and product id *@
+            @* <input value="quantity" type="number" step="1" placeholder="#"> *@
+            <form id="@Model.ProductId" method="post" asp-area="Cart" asp-page="/Cart" asp-route-productId="@Model.ProductId">
+                <button type="submit" class="btn btn-primary main_btn">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    <div class="row flex-column">
+        <div class="col-md-10 text-center" style="margin-top: 2em;">
+            <button class="btn" onclick="toggleVisibility('descriptionSection', 'customerReviewsSection')">Description</button>
+            <button class="btn" onclick="toggleVisibility('customerReviewsSection', 'descriptionSection')">Customer Reviews</button>
+        </div>
+        <div class="col-md-10 product_btn" id="descriptionSection" hidden>
+            <p class="shop_text m-4" >@Model.Description</p>
+        </div>
+        <div class="col-md-10 product_btn" id="customerReviewsSection" hidden>
+            <p class="shop_text m-4">List reviews from LineItems table here</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleVisibility(showId, hideId) {
+        var showElement = document.getElementById(showId);
+        var hideElement = document.getElementById(hideId);
+
+        // Show the clicked section
+        showElement.removeAttribute('hidden');
+
+        // Hide the other section
+        hideElement.setAttribute('hidden', '');
+    }
+</script>
