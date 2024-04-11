@@ -17,5 +17,7 @@ namespace INTEX2._0.Models
         public List<LineItem> LineItems => _context.LineItems.ToList();
         public List<Order> Orders => _context.Orders.ToList();
         public List<ProductsCategory> ProductsCategories => _context.ProductsCategories.ToList();
+        public List<Recommendation> Recommendations => _context.Recommendations.ToList();
+        public List<ProductRecommendation> ProductRecommendations => _context.ProductRecommendations.ToList();
     }
 }
