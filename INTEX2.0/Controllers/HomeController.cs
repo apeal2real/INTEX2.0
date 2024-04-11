@@ -2,6 +2,7 @@ using INTEX2._0.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace INTEX2._0.Controllers
@@ -79,7 +80,49 @@ namespace INTEX2._0.Controllers
         }
         public IActionResult OrderConfirm()
         {
+            // var cart = TempData["Cart"] as Cart;
+            // Dictionary<int, int> productQuantities = new Dictionary<int, int>();
+            //
+            // foreach (var line in cart.Lines)
+            // {
+            //     // Retrieve the product ID directly from the line
+            //     int productId = (int)line.Products.ProductId;
+            //     int quantity = line.Quantity;
+            //
+            //     // Add the product ID and quantity to the dictionary
+            //     productQuantities.TryAdd(productId, quantity);
+            //
+            // }
+            //
+            // TempData["ProductDict"] = productQuantities;
+            // var cartDict = TempData["CartData"];
+            // ViewBag.CartDict = cartDict;
+            // Retrieve the serialized JSON data from TempData
+            string serializedData = TempData["CartData"] as string;
+
+            // Deserialize the JSON data back to a dictionary
+            Dictionary<int, int> cartData = JsonConvert.DeserializeObject<Dictionary<int, int>>(serializedData);
+            ViewBag.CartDict = cartData;
+            
             return View();
+        }
+        
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            string serializedTotal = TempData["CartTotal"] as string;
+            // Deserialize the JSON data back to a decimal
+            decimal total = JsonConvert.DeserializeObject<decimal>(serializedTotal);
+            int intTotal = (int)total;
+            ViewBag.CartTotal = intTotal;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(Order order)
+        {
+            _repo.AddOrder(order);
+            return RedirectToAction("Index");
         }
     }
 }

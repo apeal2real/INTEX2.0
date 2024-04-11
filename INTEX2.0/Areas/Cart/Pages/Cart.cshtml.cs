@@ -3,6 +3,7 @@ using INTEX2._0.Infrastructure;
 using INTEX2._0.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace INTEX2._0.Pages;
 
@@ -51,13 +52,28 @@ public class CartModel : PageModel
         Cart.Clear();
         HttpContext.Session.SetJson("cart", Cart);
     }
-    public IActionResult OnPostNavigateToOrderConfirm()
+    public IActionResult OnPostNavigateToPayment()
     {
         Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+        // prep cart data for serializing
+        Dictionary<int, int> cartData = new Dictionary<int, int>();
+        foreach (var line in Cart.Lines)
+        {
+            cartData[(int)line.Products.ProductId] = line.Quantity;
+        }
+        // Serialize the dictionary to JSON
+        string serializedData = JsonConvert.SerializeObject(cartData);
+        TempData["CartData"] = serializedData;
+        
+        // also prep total calc data
+        decimal total = Cart.CalcTotal();
+        string serializedTotal = JsonConvert.SerializeObject(total);
+        TempData["CartTotal"] = serializedTotal;
+
         Cart.Clear();
         HttpContext.Session.SetJson("cart", Cart);
         
         // Redirect to a Razor View
-        return Redirect("/Home/OrderConfirm");
+        return Redirect("/Home/Checkout");
     }
 }

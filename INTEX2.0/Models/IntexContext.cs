@@ -44,7 +44,7 @@ public partial class IntexContext : DbContext
                 .HasColumnName("category_ID");
             entity.Property(e => e.CategoryName).HasColumnName("category_name");
         });
-
+    
         modelBuilder.Entity<Customer>(entity =>
         {
             entity.Property(e => e.CustomerId)
@@ -53,26 +53,25 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.BirthDate).HasColumnName("birth_date");
             entity.Property(e => e.CountryOfResidence).HasColumnName("country_of_residence");
-            entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.FirstName).HasColumnName("first_name");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.LastName).HasColumnName("last_name");
         });
-
+    
         modelBuilder.Entity<LineItem>(entity =>
         {
             entity.HasKey(e => new { e.TransactionId, e.ProductId });
-
+    
             entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
             entity.Property(e => e.ProductId).HasColumnName("product_ID");
             entity.Property(e => e.Qty).HasColumnName("qty");
             entity.Property(e => e.Rating).HasColumnName("rating");
         });
-
+    
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.TransactionId);
-
+    
             entity.Property(e => e.TransactionId)
                 .ValueGeneratedNever()
                 .HasColumnName("transaction_ID");
@@ -89,7 +88,7 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.TypeOfCard).HasColumnName("type_of_card");
             entity.Property(e => e.TypeOfTransaction).HasColumnName("type_of_transaction");
         });
-
+    
         modelBuilder.Entity<Products>(entity =>
         {
             entity.Property(e => e.ProductId)
@@ -121,9 +120,9 @@ public partial class IntexContext : DbContext
         modelBuilder.Entity<ProductsCategory>(entity =>
         {
             entity.HasKey(e => new { e.CategoryId, e.ProductId });
-
+    
             entity.ToTable("Products_Categories");
-
+    
             entity.Property(e => e.CategoryId).HasColumnName("category_ID");
             entity.Property(e => e.ProductId).HasColumnName("product_ID");
         });

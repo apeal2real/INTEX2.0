@@ -289,8 +289,8 @@ a {
 /* CONFIRMATION PAGE */
 .order_details_container {
     display: flex;
-    width: 59.5rem;
-    height: 40.375rem;
+    width: 59rem;
+    height: auto;
     padding: 1.5rem 1.5rem 2rem 1.5rem;
     flex-direction: column;
     align-items: center;
@@ -298,6 +298,10 @@ a {
     border-radius: 0.5rem;
     border: 1px solid #F2F2F2;
     box-shadow: 0px 0px 56px 0px rgba(0, 38, 3, 0.08);
+}
+
+.checkout_form {
+    margin-bottom: 1em;
 }
 
 /* -------- FOOTER -------- */
