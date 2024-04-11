@@ -43,9 +43,27 @@ namespace INTEX2._0.Controllers
 
         public IActionResult Orders()
         {
-            var fraudOrders = _repo.Orders.Where(x => x.Fraud == 1).OrderBy(x => x.Date).ToList();
-            ViewBag.Orders = fraudOrders; // Set ViewBag.Orders with the list of fraud orders
-            return View();
+            var fraudOrders = _repo.Orders
+                .Where(x => x.Fraud == 1)
+                .OrderByDescending(x => x.Date)
+                .Take(20)
+                .ToList();
+            
+            return View(fraudOrders);
+        }
+        
+        public IActionResult OrderDetails(int id)
+        {
+            var orderToDisplay = _repo.Orders
+                .Where(x => x.TransactionId == id)
+                .FirstOrDefault();
+            
+            return View(orderToDisplay);
+        }
+
+        public IActionResult EditProduct(int id)
+        {
+            return View("AddProduct");
         }
 
         [HttpGet]

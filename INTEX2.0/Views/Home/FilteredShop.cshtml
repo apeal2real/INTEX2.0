@@ -1,0 +1,61 @@
+@{
+    ViewBag.Title = "Shop";
+}
+
+    <div class="row text-center">
+        <h1 class="title">Shop</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-2">
+            <div class="filter_box">
+                <form>
+                    <div class="form-group">
+                        <h1 class="filter_heading">Category</h1>
+                        
+                        <select id="categoryId" name="categoryId" class="form-control">
+                            @if (ViewBag.Category is null)
+                            {
+                                <option disabled selected>All colors</option>
+                            }
+                            else
+                            {
+                                <option disabled selected>@ViewBag.Category</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <h1 class="filter_heading">Color</h1>
+                        <select id="color" name="color" class="form-control">
+                            @if (ViewBag.Color is null)
+                            {
+                                <option disabled selected>All colors</option>
+                            }
+                            else
+                            {
+                                <option disabled selected>@ViewBag.Color</option>
+                            }
+                        </select>
+                    </div>
+                    <button class="btn btn-primary sub_btn" asp-controller="Home" asp-action="Shop" style="margin-top: 1em">Reset</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                @foreach (var product in ViewBag.Products)
+                {
+                    <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id=@product.ProductId>
+                        <div class="product_img_box">
+                            <img class="product_img" src="@product.ImgLink"/>
+                        </div>
+                        <p class="product_name">@product.Name</p>
+                        <div class="row">
+                            <div class="col">
+                                <p class="product_price">$@product.Price.00</p>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>

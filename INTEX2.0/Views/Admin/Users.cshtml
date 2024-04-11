@@ -2,48 +2,29 @@
 @{
     ViewBag.Title = "Users";
 }
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
 
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    tbody tr:hover {
-        background-color: #ddd;
-    }
-</style>
-
-<h2>@ViewBag.Title</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th>Username</th>
-            <th>Roles</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in ViewBag.Users)
-        {
+<div class="row">
+    <h1 class="title text-center" style="margin-bottom: 1em;">@ViewBag.Title</h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <table class="table table-borderless">
+            <thead class="thead_row">
             <tr>
+                <th class="table_heading">Username</th>
+                <th class="table_heading">Roles</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var user in ViewBag.Users)
+            {
+            <tr class="text-center">
                 <td>@user.UserName</td>
                 <td>@user.Name</td>
                 <td>
-                    <a class="btn btn-primary" asp-controller="Admin" asp-action="UpdateUser" asp-route-id="@user.UserID">
+                    <a class="btn btn-primary sub_btn" asp-controller="Admin" asp-action="UpdateUser" asp-route-id="@user.UserID">
                         Edit
                     </a>
                 </td>
@@ -53,7 +34,9 @@
                     </a>
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
 
