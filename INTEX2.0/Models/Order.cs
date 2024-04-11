@@ -9,6 +9,7 @@ namespace INTEX2._0.Models;
 public partial class Order
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int TransactionId { get; set; }
     
     [ForeignKey("Customer")]

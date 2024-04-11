@@ -44,13 +44,6 @@
     <AdditionalFiles Include="Areas\Cart\Pages\Cart.cshtml" />
     <AdditionalFiles Include="Areas\Cart\Pages\_ViewImports.cshtml" />
     <AdditionalFiles Include="Areas\Cart\Pages\_ViewStart.cshtml" />
-
-    <None Update="INTEX.sqlite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="MFALabW24.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     
   </ItemGroup>
 
