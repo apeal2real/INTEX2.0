@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace INTEX2._0.Models;
 
-public class Customer
+public partial class Customer
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,4 +22,6 @@ public class Customer
     public string? Gender { get; set; }
 
     public double? Age { get; set; }
+
+    public string? Email { get; set; }
 }

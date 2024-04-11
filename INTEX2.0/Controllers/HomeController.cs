@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace INTEX2._0.Controllers
 {
@@ -17,11 +18,8 @@ namespace INTEX2._0.Controllers
 
         public IActionResult Index()
         {
-            Cart cart = new Cart();
-            ViewBag.Cart = cart;
-            
-            var products = _repo.Products.ToList();
-            return View(products);
+            var allProducts = _repo.Products.ToList();
+            return View(allProducts);
         }
         public IActionResult Shop()
         {
@@ -36,7 +34,7 @@ namespace INTEX2._0.Controllers
         {
             var productsQuery = from p in _repo.Products
                 join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
-                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
+                                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
                 select new { Product = p, Category = c };
 
             if (categoryId.HasValue)
