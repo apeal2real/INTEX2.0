@@ -49,5 +49,10 @@ namespace INTEX2._0.Controllers
             
             return View(orderToDisplay);
         }
+
+        public IActionResult EditProduct(int id)
+        {
+            return View("AddProduct");
+        }
     }
 }
