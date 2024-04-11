@@ -1,5 +1,9 @@
 ﻿using INTEX2._0.Models;
+using INTEX2._0.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using X.PagedList;
 
 namespace INTEX2._0.Controllers
@@ -14,11 +18,18 @@ namespace INTEX2._0.Controllers
             _repo = temp;
             _usersRepo = usersRepo; // Assign IUsers dependency
         }
-
         public IActionResult Users()
         {
-            var users = _usersRepo.AspNetUsers.ToList(); // Fetch users from your repository
-            ViewBag.Users = users;
+            // Fetch users from the database along with their roles
+            var usersQuery = from u in _usersRepo.AspNetUsers
+                             join ur in _usersRepo.AspNetUserRoles on u.Id equals ur.UserId
+                             join r in _usersRepo.AspNetRoles on ur.RoleId equals r.Id
+                             select new { u.UserName, r.Name, UserID = u.Id, RoleID = r.Id };
+
+            var userData = usersQuery.ToList();
+
+            ViewBag.Users = userData;
+
             return View();
         }
 
@@ -36,5 +47,29 @@ namespace INTEX2._0.Controllers
             ViewBag.Orders = fraudOrders; // Set ViewBag.Orders with the list of fraud orders
             return View();
         }
+
+        [HttpGet]
+        public IActionResult UpdateUser(string id)
+        {
+            var usersQuery = (from u in _usersRepo.AspNetUsers
+                             join ur in _usersRepo.AspNetUserRoles on u.Id equals ur.UserId
+                             join r in _usersRepo.AspNetRoles on ur.RoleId equals r.Id
+                             where u.Id == id
+                             select new UpdateUserViewModel { UserName = u.UserName, RoleName = r.Name, UserID = u.Id, RoleID = r.Id }).FirstOrDefault();
+                            
+            //var userData = usersQuery.ToList();
+
+            //ViewBag.Users = userData;
+
+            return View(usersQuery);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUser(AspNetUser response)
+        {
+            _usersRepo.UpdateUser(response); //add record to database
+            return RedirectToAction("Users");
+        }
+
     }
 }
