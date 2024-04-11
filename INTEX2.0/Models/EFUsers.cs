@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using INTEX2._0.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,5 +26,24 @@ namespace INTEX2._0.Models
         public List<AspNetUserLogin> AspNetUserLogins => _context.AspNetUserLogins.ToList();
 
         public List<AspNetUserToken> AspNetUserTokens => _context.AspNetUserTokens.ToList();
+        public List<AspNetUserRole> AspNetUserRoles => _context.AspNetUserRoles.ToList();
+
+        public void RemoveUser(AspNetUser user)
+        {
+            _context.AspNetUsers.Remove(user);
+            _context.SaveChanges();
+        }
+
+        public void UpdateUser(AspNetUser user)
+        {
+            _context.AspNetUsers.Update(user);
+            _context.SaveChanges();
+        }
+
+        public void AddUser(AspNetUser user)
+        {
+            _context.AspNetUsers.Add(user);
+            _context.SaveChanges();
+        }
     }
 }
