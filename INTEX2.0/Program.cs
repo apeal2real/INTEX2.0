@@ -16,25 +16,25 @@ public class Program
         var configuration = builder.Configuration;
 
         // Create a new SecretClient to retrieve secrets from Azure Key Vault
-        var keyVaultUri = new Uri("https://brickblockssecrets.vault.azure.net/");
-        var credential = new DefaultAzureCredential();
-        var secretClient = new SecretClient(vaultUri: keyVaultUri, credential: credential);
-
-        // Retrieve secrets from Azure Key Vault
-        var clientId = (await secretClient.GetSecretAsync("GoogleClientID")).Value.Value;
-        var clientSecret = (await secretClient.GetSecretAsync("GoogleClientSecret")).Value.Value;
-
-        // //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-        // //{
-        // //    microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
-        // //    microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
-        // //});
+        // var keyVaultUri = new Uri("https://brickblockssecrets.vault.azure.net/");
+        // var credential = new DefaultAzureCredential();
+        // var secretClient = new SecretClient(vaultUri: keyVaultUri, credential: credential);
         //
-        services.AddAuthentication().AddGoogle(googleOptions =>
-        {
-            googleOptions.ClientId = clientId /*configuration["Authentication:Google:ClientId2"]*/;
-            googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
-        });
+        // // Retrieve secrets from Azure Key Vault
+        // var clientId = (await secretClient.GetSecretAsync("GoogleClientID")).Value.Value;
+        // var clientSecret = (await secretClient.GetSecretAsync("GoogleClientSecret")).Value.Value;
+        //
+        // // //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+        // // //{
+        // // //    microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+        // // //    microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+        // // //});
+        // //
+        // services.AddAuthentication().AddGoogle(googleOptions =>
+        // {
+        //     googleOptions.ClientId = clientId /*configuration["Authentication:Google:ClientId2"]*/;
+        //     googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
+        // });
 
         //Add services to the container.
        var connectionString2 = builder.Configuration.GetConnectionString("MyDatabaseConnection");
