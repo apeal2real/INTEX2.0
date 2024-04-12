@@ -15,21 +15,25 @@ public partial class IntexContext : DbContext
     {
     }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public DbSet<Customer> Customers { get; set; }
 
-    public virtual DbSet<LineItem> LineItems { get; set; }
+    public DbSet<LineItem> LineItems { get; set; }
 
-    public virtual DbSet<Order> Orders { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<Products> Products { get; set; }
+    public DbSet<Products> Products { get; set; }
 
-    public virtual DbSet<ProductsCategory> ProductsCategories { get; set; }
+    public DbSet<ProductRecommendation> ProductRecommendations { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlite("Data Source=INTEX.sqlite");
+    public DbSet<ProductsCategory> ProductsCategories { get; set; }
+
+    public DbSet<Recommendation> Recommendations { get; set; }
+
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlite("Data Source=INTEX.sqlite");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,12 +47,13 @@ public partial class IntexContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.Property(e => e.CustomerId)
-                .ValueGeneratedNever()
-                .HasColumnName("customer_ID");
+            entity.HasIndex(e => e.CustomerId, "IX_Customers_customer_ID").IsUnique();
+
+            entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.BirthDate).HasColumnName("birth_date");
             entity.Property(e => e.CountryOfResidence).HasColumnName("country_of_residence");
+            entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.FirstName).HasColumnName("first_name");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.LastName).HasColumnName("last_name");
@@ -68,9 +73,9 @@ public partial class IntexContext : DbContext
         {
             entity.HasKey(e => e.TransactionId);
 
-            entity.Property(e => e.TransactionId)
-                .ValueGeneratedNever()
-                .HasColumnName("transaction_ID");
+            entity.HasIndex(e => e.TransactionId, "IX_Orders_transaction_ID").IsUnique();
+
+            entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.Bank).HasColumnName("bank");
             entity.Property(e => e.CountryOfTransaction).HasColumnName("country_of_transaction");
@@ -101,6 +106,18 @@ public partial class IntexContext : DbContext
             entity.Property(e => e.Year).HasColumnName("year");
         });
 
+        modelBuilder.Entity<ProductRecommendation>(entity =>
+        {
+            entity.HasKey(e => e.ItemId);
+
+            entity.Property(e => e.ItemId)
+                .ValueGeneratedNever()
+                .HasColumnName("item_id");
+            entity.Property(e => e.RecommendedId1).HasColumnName("recommended_id_1");
+            entity.Property(e => e.RecommendedId2).HasColumnName("recommended_id_2");
+            entity.Property(e => e.RecommendedId3).HasColumnName("recommended_id_3");
+        });
+
         modelBuilder.Entity<ProductsCategory>(entity =>
         {
             entity.HasKey(e => new { e.CategoryId, e.ProductId });
@@ -109,6 +126,19 @@ public partial class IntexContext : DbContext
 
             entity.Property(e => e.CategoryId).HasColumnName("category_ID");
             entity.Property(e => e.ProductId).HasColumnName("product_ID");
+        });
+
+        modelBuilder.Entity<Recommendation>(entity =>
+        {
+            entity.HasKey(e => e.CustomerId);
+
+            entity.Property(e => e.CustomerId)
+                .ValueGeneratedNever()
+                .HasColumnName("customer_ID");
+            entity.Property(e => e.Recommendation1).HasColumnName("Recommendation_1");
+            entity.Property(e => e.Recommendation2).HasColumnName("Recommendation_2");
+            entity.Property(e => e.Recommendation3).HasColumnName("Recommendation_3");
+            entity.Property(e => e.Recommendation4).HasColumnName("Recommendation_4");
         });
 
         OnModelCreatingPartial(modelBuilder);

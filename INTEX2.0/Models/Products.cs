@@ -7,7 +7,7 @@ namespace INTEX2._0.Models;
 public partial class Products
 {
     [Key]
-    public int? ProductId { get; set; }
+    public int ProductId { get; set; }
 
     public string? Name { get; set; }
 
