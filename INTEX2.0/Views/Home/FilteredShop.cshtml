@@ -36,6 +36,19 @@
                             }
                         </select>
                     </div>
+                    <div class="form-group">
+                        <h1 class="filter_heading">Color</h1>
+                        <select id="itemNum" name="itemNum" class="form-control">
+                            @if (ViewBag.itemNum is null)
+                            {
+                            <option disabled selected>All</option>
+                            }
+                            else
+                            {
+                            <option disabled selected>@ViewBag.itemNum</option>
+                            }
+                        </select>
+                    </div>
                     <button class="btn btn-primary sub_btn" asp-controller="Home" asp-action="Shop" style="margin-top: 1em">Reset</button>
                 </form>
             </div>
