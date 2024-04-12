@@ -1,2 +1,66 @@
-<h1>Add Product page</h1>
-<subtitle>Form coming soon</subtitle>
+@model PCViewModel
+
+<div class="row text-center">
+    <h1 class="title">Add Product</h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-8 form_box">
+        <form method="post" asp-controller="Admin" asp-action="AddProduct">
+            <div class="form-group">
+                <label asp-for="@Model.Name">Name:</label>
+                <input type="text" asp-for="@Model.Name" class="form-control" value="@Model.Name">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Year">Year:</label>
+                <input type="text" asp-for="@Model.Year" class="form-control" value="@Model.Year">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.NumParts">Number of Parts:</label>
+                <input type="text" asp-for="@Model.NumParts" class="form-control" value="@Model.NumParts">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Price">Price:</label>
+                <input type="text" asp-for="@Model.Price" class="form-control" value="@Model.Price">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.ImgLink">Image Link:</label>
+                <input type="text" asp-for="@Model.ImgLink" class="form-control" value="@Model.ImgLink">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.PrimaryColor">Primary Color:</label>
+                <input type="text" id="primaryColor" name="primaryColor" class="form-control" value="@Model.PrimaryColor">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.SecondaryColor">Secondary Color:</label>
+                <input type="text" asp-for="@Model.SecondaryColor" class="form-control" value="@Model.SecondaryColor">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.ShortDescription">Short Description:</label>
+                <textarea type="text" asp-for="@Model.ShortDescription" class="form-control">@Model.ShortDescription</textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Description">Description:</label>
+                <textarea type="text"  asp-for="@Model.Description" class="form-control">@Model.Description</textarea>
+            </div>
+
+            <div class="form-group">
+                <select class="form-control" style="margin-top: 1em;" asp-for="@Model.CategoryName">
+                    <option value="">Select a Category</option>
+                    @foreach (var c in ViewBag.Categories) {
+                        <option value="@c">@c</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary main_btn">Add Product</button>
+        </form>
+    </div>
+</div>

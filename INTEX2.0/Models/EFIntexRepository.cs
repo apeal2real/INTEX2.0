@@ -37,5 +37,41 @@ namespace INTEX2._0.Models
             _context.Customers.Add(customer);
             _context.SaveChanges();
         }
+
+        public void AddProduct(Products product)
+        {
+            _context.Products.Add(product);
+            _context.SaveChanges();
+        }
+
+        public void EditProduct(Products product)
+        {
+            _context.Products.Update(product);
+            _context.SaveChanges();
+        }
+
+        public void DeleteProduct(Products product)
+        {
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+        }
+
+        public void AddProductCategory(ProductsCategory prodCat)
+        {
+            _context.ProductsCategories.Add(prodCat);
+            _context.SaveChanges();
+        }
+
+        public void EditProductCategory(ProductsCategory prodCat)
+        {
+            _context.ProductsCategories.Update(prodCat);
+            _context.SaveChanges();
+        }
+
+        public void DeleteProductCategory(ProductsCategory prodCat)
+        {
+            _context.ProductsCategories.Remove(prodCat);
+            _context.SaveChanges();
+        }
     }
 }

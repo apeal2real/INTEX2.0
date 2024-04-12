@@ -12,9 +12,9 @@
 <div class="row justify-content-center">
     <div class="col-md-10 form_box">
         <div asp-validation-summary="All" class="text-danger"></div>
-        <form method="post">
+        <form method="post" asp-controller="Admin" asp-action="UpdateUser">
             <!-- Hidden field to send the UserId along with the form submission -->
-            <input type="hidden" asp-for="@Model.UserID"/>
+            <input type="hidden" asp-for="@Model.UserId"/>
 
             <div class="form-group">
                 <label asp-for="@Model.UserName">Username:</label>
@@ -24,17 +24,17 @@
 
             <div class="form-group">
                 <!-- Dropdown for selecting role -->
-                <label asp-for="@Model.RoleName">Role:</label><br>
-                <select asp-for="@Model.RoleName" id="@Model.RoleName" name="@Model.RoleName" required>
+                <label asp-for="@Model.RoleID">Role:</label><br>
+                <select class="form-control" asp-for="@Model.RoleID" required>
                     @if (Model.RoleName == "Admin")
                     {
-                        <option value="Admin">Admin</option>
-                        <option value="User">User</option>
+                        <option value="b76106b0-1485-4c14-8318-55391f160b0f">Admin</option>
+                        <option value="0e3d6913-8080-4a1a-979f-b1fba0853ebe">User</option>
                     }
                     else
                     {
-                        <option value="User">User</option>
-                        <option value="Admin">Admin</option>
+                        <option value="0e3d6913-8080-4a1a-979f-b1fba0853ebe">User</option>
+                        <option value="b76106b0-1485-4c14-8318-55391f160b0f">Admin</option>
                     }
                 </select><br><br>
             </div>
@@ -44,6 +44,18 @@
 
             <!-- Display validation errors if any -->
             <div asp-validation-summary="All"></div>
+            @* <input type="hidden" asp-for="@Model.NormalizedUserName" value="@Model.NormalizedUserName" > *@
+            @* <input type="hidden" asp-for="@Model.NormalizedEmail" value="@Model.NormalizedEmail" > *@
+            @* <input type="hidden" asp-for="@Model.EmailConfirmed" value="@Model.EmailConfirmed" > *@
+            @* <input type="hidden" asp-for="@Model.PasswordHash" value="@Model.PasswordHash" > *@
+            @* <input type="hidden" asp-for="@Model.SecurityStamp" value="@Model.SecurityStamp" > *@
+            @* <input type="hidden" asp-for="@Model.ConcurrencyStamp" value="@Model.ConcurrencyStamp" > *@
+            @* <input type="hidden" asp-for="@Model.PhoneNumber" value="@Model.PhoneNumber" > *@
+            @* <input type="hidden" asp-for="@Model.PhoneNumberConfirmed" value="@Model.PhoneNumberConfirmed" > *@
+            @* <input type="hidden" asp-for="@Model.TwoFactorEnabled" value="@Model.TwoFactorEnabled" > *@
+            @* <input type="hidden" asp-for="@Model.LockoutEnd" value="@Model.LockoutEnd" > *@
+            @* <input type="hidden" asp-for="@Model.LockoutEnabled" value="@Model.LockoutEnabled" > *@
+            @* <input type="hidden" asp-for="@Model.AccessFailedCount" value="@Model.AccessFailedCount" > *@
         </form>
     </div>
    

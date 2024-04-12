@@ -166,11 +166,6 @@ namespace INTEX2._0.Controllers
             return View(orderToDisplay);
         }
 
-        public IActionResult EditProduct(int id)
-        {
-            return View("AddProduct");
-        }
-
         [HttpGet]
         public IActionResult UpdateUser(string id)
         {
@@ -178,7 +173,25 @@ namespace INTEX2._0.Controllers
                              join ur in _usersRepo.AspNetUserRoles on u.Id equals ur.UserId
                              join r in _usersRepo.AspNetRoles on ur.RoleId equals r.Id
                              where u.Id == id
-                             select new UpdateUserViewModel { UserName = u.UserName, RoleName = r.Name, UserID = u.Id, RoleID = r.Id }).FirstOrDefault();
+                             select new UpdateUserViewModel
+                             {
+                                 UserId = u.Id,
+                                 UserName = u.UserName,
+                                 NormalizedUserName = u.NormalizedUserName,
+                                 Email = u.Email,
+                                 NormalizedEmail = u.NormalizedEmail,
+                                 PasswordHash = u.PasswordHash,
+                                 SecurityStamp = u.SecurityStamp,
+                                 ConcurrencyStamp= u.ConcurrencyStamp,
+                                 PhoneNumber = u.PhoneNumber,
+                                 PhoneNumberConfirmed = u.PhoneNumberConfirmed,
+                                 TwoFactorEnabled = u.TwoFactorEnabled,
+                                 LockoutEnd = u.LockoutEnd,
+                                 LockoutEnabled = u.LockoutEnabled,
+                                 AccessFailedCount = u.AccessFailedCount,
+                                 RoleName = r.Name,
+                                 RoleID = ur.RoleId,
+                             }).FirstOrDefault();
                             
             //var userData = usersQuery.ToList();
 
@@ -188,9 +201,72 @@ namespace INTEX2._0.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateUser(AspNetUser response)
+        public IActionResult UpdateUser(UpdateUserViewModel response)
         {
-            _usersRepo.UpdateUser(response); //add record to database
+            AspNetUser user = _usersRepo.AspNetUsers
+                .FirstOrDefault(u => u.Id == response.UserId);
+            user.Id = response.UserId;
+            user.UserName = response.UserName;
+            // user.NormalizedUserName = response.NormalizedUserName;
+            // user.Email = response.Email;
+            // user.NormalizedEmail = response.NormalizedEmail;
+            // user.EmailConfirmed = response.EmailConfirmed;
+            // user.PasswordHash = response.PasswordHash;
+            // user.SecurityStamp = response.SecurityStamp;
+            // user.ConcurrencyStamp = response.ConcurrencyStamp;
+            // user.PhoneNumber = response.PhoneNumber;
+            // user.PhoneNumberConfirmed = response.PhoneNumberConfirmed;
+            // user.TwoFactorEnabled = response.TwoFactorEnabled;
+            // user.AccessFailedCount = response.AccessFailedCount;
+            
+            _usersRepo.UpdateUser(user); //add record to database
+            
+            // update user role table
+            AspNetUserRole userRole = _usersRepo.AspNetUserRoles
+                .FirstOrDefault(ur => ur.UserId == response.UserId);
+            
+            userRole.RoleId = response.RoleID;
+            userRole.UserId = response.UserId;
+
+            _usersRepo.UpdateUserRole(userRole);
+            
+            return RedirectToAction("Users");
+        }
+
+        [HttpGet]
+        public IActionResult AddUser()
+        {
+            UpdateUserViewModel user = new UpdateUserViewModel();
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult AddUser(UpdateUserViewModel response)
+        {
+            AspNetUser user = new AspNetUser();
+            
+            // hash the email and call it the Id
+            string id = response.ComputeSha256Hash(response.Email);
+            user.Id = id;
+            user.UserName = response.Email;
+            // user.NormalizedUserName = response.UserName.ToUpper();
+            user.Email = response.Email;
+            // user.NormalizedEmail = response.Email.ToUpper();
+            
+            // hashes user inputted password
+            var hashedPassword = response.ComputeSha256Hash(response.PasswordHash);
+            user.PasswordHash = hashedPassword;
+            user.PhoneNumber = response.PhoneNumber;
+            
+            _usersRepo.AddUser(user); //add record to database
+            
+            // update user role table
+            AspNetUserRole userRole = new AspNetUserRole();
+            userRole.RoleId = response.RoleID;
+            userRole.UserId = id;
+
+            _usersRepo.AddUserRole(userRole);
+            
             return RedirectToAction("Users");
         }
 
@@ -211,17 +287,184 @@ namespace INTEX2._0.Controllers
             return RedirectToAction("Users");
         }
 
-        [HttpGet]
-        public IActionResult AddEdit() //This action returns the UpdateUser page but doesn't populate it with any data
-        {
-            return View("UpdateUser");
-        }
+        // [HttpGet]
+        // public IActionResult AddEdit() //This action returns the UpdateUser page but doesn't populate it with any data
+        // {
+        //     return View("UpdateUser");
+        // }
+        //
+        // [HttpPost]
+        // public IActionResult AddEdit(AspNetUser response) //This Post method allows the user to add a task and saves it
+        // {
+        //     _usersRepo.AddUser(response); //add record to database
+        //     return RedirectToAction("Index");
+        // }
 
-        [HttpPost]
-        public IActionResult AddEdit(AspNetUser response) //This Post method allows the user to add a task and saves it
+        [HttpGet]
+        public IActionResult AddProduct()
         {
-            _usersRepo.AddUser(response); //add record to database
-            return RedirectToAction("Index");
+            PCViewModel newProd = new PCViewModel();
+
+            var categories = _repo.Categories
+                .Select(c => c.CategoryName)
+                .Distinct();
+
+            ViewBag.Categories = categories;
+            
+            return View(newProd);
+        }
+        
+        [HttpPost]
+        public IActionResult AddProduct(PCViewModel response)
+        {
+            Products product = new Products();
+            product.Name = response.Name;
+            product.Year = response.Year;
+            product.NumParts = response.NumParts;
+            product.Price = response.Price;
+            product.ImgLink = response.ImgLink;
+            product.PrimaryColor = response.PrimaryColor;
+            product.SecondaryColor = response.SecondaryColor;
+            product.ShortDescription = response.ShortDescription;
+            product.Description = response.Description;
+
+            _repo.AddProduct(product);
+
+            var categoryId = _repo.Categories
+                .Where(c => c.CategoryName == response.CategoryName)
+                .Select(c => c.CategoryId)
+                .FirstOrDefault();
+
+            ProductsCategory prodCat = new ProductsCategory();
+            prodCat.ProductId = product.ProductId;
+            prodCat.CategoryId = categoryId;
+            _repo.AddProductCategory(prodCat);
+            
+            return RedirectToAction("Products");
+        }
+        
+        [HttpGet]
+        public IActionResult EditProduct(int id)
+        {
+            var product = (from p in _repo.Products
+                join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
+                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
+                where p.ProductId == id
+                select new PCViewModel
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Year = p.Year,
+                    NumParts = p.NumParts,
+                    Price = p.Price,
+                    ImgLink = p.ImgLink,
+                    PrimaryColor = p.PrimaryColor,
+                    SecondaryColor = p.SecondaryColor,
+                    Description = p.Description,
+                    CategoryName = c.CategoryName
+                }).FirstOrDefault();
+            
+            var categories = _repo.Categories
+                .Select(c => c.CategoryName)
+                .Distinct();
+
+            ViewBag.Categories = categories;
+            
+            return View(product);
+        }
+        
+        [HttpPost]
+        public IActionResult EditProduct(PCViewModel response)
+        {
+            Products product = _repo.Products
+                .Where(p => p.ProductId == response.ProductId)
+                .FirstOrDefault();
+            
+            product.Name = response.Name;
+            product.Year = response.Year;
+            product.NumParts = response.NumParts;
+            product.Price = response.Price;
+            product.ImgLink = response.ImgLink;
+            product.PrimaryColor = response.PrimaryColor;
+            product.SecondaryColor = response.SecondaryColor;
+            product.ShortDescription = response.ShortDescription;
+            product.Description = response.Description;
+
+            _repo.EditProduct(product);
+
+            var categoryId = _repo.Categories
+                .Where(c => c.CategoryName == response.CategoryName)
+                .Select(c => c.CategoryId)
+                .FirstOrDefault();
+
+            ProductsCategory prodCat = _repo.ProductsCategories
+                .Where(p => p.ProductId == response.ProductId)
+                .FirstOrDefault();
+            
+            prodCat.ProductId = product.ProductId;
+            prodCat.CategoryId = categoryId;
+            _repo.EditProductCategory(prodCat);
+            
+            return RedirectToAction("Products");
+        }
+        
+        [HttpGet]
+        public IActionResult DeleteProduct(int id)
+        {
+            var product = (from p in _repo.Products
+                join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
+                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
+                where p.ProductId == id
+                select new PCViewModel
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Year = p.Year,
+                    NumParts = p.NumParts,
+                    Price = p.Price,
+                    ImgLink = p.ImgLink,
+                    PrimaryColor = p.PrimaryColor,
+                    SecondaryColor = p.SecondaryColor,
+                    Description = p.Description,
+                    CategoryName = c.CategoryName
+                }).FirstOrDefault();
+            
+            return View(product);
+        }
+        
+        [HttpPost]
+        public IActionResult DeleteProduct(PCViewModel response)
+        {
+            Products product = _repo.Products
+                .Where(p => p.ProductId == response.ProductId)
+                .FirstOrDefault();
+            
+            product.Name = response.Name;
+            product.Year = response.Year;
+            product.NumParts = response.NumParts;
+            product.Price = response.Price;
+            product.ImgLink = response.ImgLink;
+            product.PrimaryColor = response.PrimaryColor;
+            product.SecondaryColor = response.SecondaryColor;
+            product.ShortDescription = response.ShortDescription;
+            product.Description = response.Description;
+
+            _repo.DeleteProduct(product);
+
+            var categoryId = _repo.Categories
+                .Where(c => c.CategoryName == response.CategoryName)
+                .Select(c => c.CategoryId)
+                .FirstOrDefault();
+
+            ProductsCategory prodCat = _repo.ProductsCategories
+                .Where(p => p.ProductId == response.ProductId)
+                .FirstOrDefault();
+            
+            prodCat.ProductId = product.ProductId;
+            prodCat.CategoryId = categoryId;
+            _repo.DeleteProductCategory(prodCat);
+            
+            return RedirectToAction("Products");
         }
     }
 }
