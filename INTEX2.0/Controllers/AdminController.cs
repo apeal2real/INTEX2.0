@@ -91,8 +91,6 @@ namespace INTEX2._0.Controllers
                                  AccessFailedCount = u.AccessFailedCount,
                                  RoleName = r.Name,
                                  RoleID = ur.RoleId,
-                                 // NormalizedName = r.NormalizedName,
-                                 // RoleConcurrencyStamp = r.ConcurrencyStamp
                              }).FirstOrDefault();
                             
             //var userData = usersQuery.ToList();
@@ -109,17 +107,17 @@ namespace INTEX2._0.Controllers
                 .FirstOrDefault(u => u.Id == response.UserId);
             user.Id = response.UserId;
             user.UserName = response.UserName;
-            user.NormalizedUserName = response.NormalizedUserName;
-            user.Email = response.Email;
-            user.NormalizedEmail = response.NormalizedEmail;
-            user.EmailConfirmed = response.EmailConfirmed;
-            user.PasswordHash = response.PasswordHash;
-            user.SecurityStamp = response.SecurityStamp;
-            user.ConcurrencyStamp = response.ConcurrencyStamp;
-            user.PhoneNumber = response.PhoneNumber;
-            user.PhoneNumberConfirmed = response.PhoneNumberConfirmed;
-            user.TwoFactorEnabled = response.TwoFactorEnabled;
-            user.AccessFailedCount = response.AccessFailedCount;
+            // user.NormalizedUserName = response.NormalizedUserName;
+            // user.Email = response.Email;
+            // user.NormalizedEmail = response.NormalizedEmail;
+            // user.EmailConfirmed = response.EmailConfirmed;
+            // user.PasswordHash = response.PasswordHash;
+            // user.SecurityStamp = response.SecurityStamp;
+            // user.ConcurrencyStamp = response.ConcurrencyStamp;
+            // user.PhoneNumber = response.PhoneNumber;
+            // user.PhoneNumberConfirmed = response.PhoneNumberConfirmed;
+            // user.TwoFactorEnabled = response.TwoFactorEnabled;
+            // user.AccessFailedCount = response.AccessFailedCount;
             
             _usersRepo.UpdateUser(user); //add record to database
             
@@ -131,6 +129,43 @@ namespace INTEX2._0.Controllers
             userRole.UserId = response.UserId;
 
             _usersRepo.UpdateUserRole(userRole);
+            
+            return RedirectToAction("Users");
+        }
+
+        [HttpGet]
+        public IActionResult AddUser()
+        {
+            UpdateUserViewModel user = new UpdateUserViewModel();
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult AddUser(UpdateUserViewModel response)
+        {
+            AspNetUser user = new AspNetUser();
+            
+            // hash the email and call it the Id
+            string id = response.ComputeSha256Hash(response.Email);
+            user.Id = id;
+            user.UserName = response.Email;
+            // user.NormalizedUserName = response.UserName.ToUpper();
+            user.Email = response.Email;
+            // user.NormalizedEmail = response.Email.ToUpper();
+            
+            // hashes user inputted password
+            var hashedPassword = response.ComputeSha256Hash(response.PasswordHash);
+            user.PasswordHash = hashedPassword;
+            user.PhoneNumber = response.PhoneNumber;
+            
+            _usersRepo.AddUser(user); //add record to database
+            
+            // update user role table
+            AspNetUserRole userRole = new AspNetUserRole();
+            userRole.RoleId = response.RoleID;
+            userRole.UserId = id;
+
+            _usersRepo.AddUserRole(userRole);
             
             return RedirectToAction("Users");
         }
@@ -152,17 +187,17 @@ namespace INTEX2._0.Controllers
             return RedirectToAction("Users");
         }
 
-        [HttpGet]
-        public IActionResult AddEdit() //This action returns the UpdateUser page but doesn't populate it with any data
-        {
-            return View("UpdateUser");
-        }
-
-        [HttpPost]
-        public IActionResult AddEdit(AspNetUser response) //This Post method allows the user to add a task and saves it
-        {
-            _usersRepo.AddUser(response); //add record to database
-            return RedirectToAction("Index");
-        }
+        // [HttpGet]
+        // public IActionResult AddEdit() //This action returns the UpdateUser page but doesn't populate it with any data
+        // {
+        //     return View("UpdateUser");
+        // }
+        //
+        // [HttpPost]
+        // public IActionResult AddEdit(AspNetUser response) //This Post method allows the user to add a task and saves it
+        // {
+        //     _usersRepo.AddUser(response); //add record to database
+        //     return RedirectToAction("Index");
+        // }
     }
 }

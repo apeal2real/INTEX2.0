@@ -51,5 +51,11 @@ namespace INTEX2._0.Models
             _context.AspNetUserRoles.Update(userRole);
             _context.SaveChanges();
         }
+        
+        public void AddUserRole(AspNetUserRole userRole)
+        {
+            _context.AspNetUserRoles.Add(userRole);
+            _context.SaveChanges();
+        }
     }
 }

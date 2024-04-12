@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace INTEX2._0.Models.ViewModels
 {
@@ -36,8 +38,25 @@ namespace INTEX2._0.Models.ViewModels
 
         public int AccessFailedCount { get; set; }
         public string RoleName { get; set; }
+
         public string RoleID { get; set; }
-        // public string NormalizedName { get; set; }
-        // public string RoleConcurrencyStamp { get; set; }
+
+        public string ComputeSha256Hash(string input)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                // ComputeHash returns byte array, convert it to a string
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+                // Convert byte array to a hex string
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    stringBuilder.Append(hashBytes[i].ToString("x2"));
+                }
+
+                return stringBuilder.ToString();
+            }
+        }
     }
 }
