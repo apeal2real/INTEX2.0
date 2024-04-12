@@ -167,11 +167,6 @@ namespace INTEX2._0.Controllers
             return View(orderToDisplay);
         }
 
-        public IActionResult EditProduct(int id)
-        {
-            return View("AddProduct");
-        }
-
         [HttpGet]
         public IActionResult UpdateUser(string id)
         {
@@ -331,6 +326,7 @@ namespace INTEX2._0.Controllers
             product.ImgLink = response.ImgLink;
             product.PrimaryColor = response.PrimaryColor;
             product.SecondaryColor = response.SecondaryColor;
+            product.ShortDescription = response.ShortDescription;
             product.Description = response.Description;
 
             _repo.AddProduct(product);
@@ -344,6 +340,130 @@ namespace INTEX2._0.Controllers
             prodCat.ProductId = product.ProductId;
             prodCat.CategoryId = categoryId;
             _repo.AddProductCategory(prodCat);
+            
+            return RedirectToAction("Products");
+        }
+        
+        [HttpGet]
+        public IActionResult EditProduct(int id)
+        {
+            var product = (from p in _repo.Products
+                join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
+                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
+                where p.ProductId == id
+                select new PCViewModel
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Year = p.Year,
+                    NumParts = p.NumParts,
+                    Price = p.Price,
+                    ImgLink = p.ImgLink,
+                    PrimaryColor = p.PrimaryColor,
+                    SecondaryColor = p.SecondaryColor,
+                    Description = p.Description,
+                    CategoryName = c.CategoryName
+                }).FirstOrDefault();
+            
+            var categories = _repo.Categories
+                .Select(c => c.CategoryName)
+                .Distinct();
+
+            ViewBag.Categories = categories;
+            
+            return View(product);
+        }
+        
+        [HttpPost]
+        public IActionResult EditProduct(PCViewModel response)
+        {
+            Products product = _repo.Products
+                .Where(p => p.ProductId == response.ProductId)
+                .FirstOrDefault();
+            
+            product.Name = response.Name;
+            product.Year = response.Year;
+            product.NumParts = response.NumParts;
+            product.Price = response.Price;
+            product.ImgLink = response.ImgLink;
+            product.PrimaryColor = response.PrimaryColor;
+            product.SecondaryColor = response.SecondaryColor;
+            product.ShortDescription = response.ShortDescription;
+            product.Description = response.Description;
+
+            _repo.EditProduct(product);
+
+            var categoryId = _repo.Categories
+                .Where(c => c.CategoryName == response.CategoryName)
+                .Select(c => c.CategoryId)
+                .FirstOrDefault();
+
+            ProductsCategory prodCat = _repo.ProductsCategories
+                .Where(p => p.ProductId == response.ProductId)
+                .FirstOrDefault();
+            
+            prodCat.ProductId = product.ProductId;
+            prodCat.CategoryId = categoryId;
+            _repo.EditProductCategory(prodCat);
+            
+            return RedirectToAction("Products");
+        }
+        
+        [HttpGet]
+        public IActionResult DeleteProduct(int id)
+        {
+            var product = (from p in _repo.Products
+                join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
+                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
+                where p.ProductId == id
+                select new PCViewModel
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Year = p.Year,
+                    NumParts = p.NumParts,
+                    Price = p.Price,
+                    ImgLink = p.ImgLink,
+                    PrimaryColor = p.PrimaryColor,
+                    SecondaryColor = p.SecondaryColor,
+                    Description = p.Description,
+                    CategoryName = c.CategoryName
+                }).FirstOrDefault();
+            
+            return View(product);
+        }
+        
+        [HttpPost]
+        public IActionResult DeleteProduct(PCViewModel response)
+        {
+            Products product = _repo.Products
+                .Where(p => p.ProductId == response.ProductId)
+                .FirstOrDefault();
+            
+            product.Name = response.Name;
+            product.Year = response.Year;
+            product.NumParts = response.NumParts;
+            product.Price = response.Price;
+            product.ImgLink = response.ImgLink;
+            product.PrimaryColor = response.PrimaryColor;
+            product.SecondaryColor = response.SecondaryColor;
+            product.ShortDescription = response.ShortDescription;
+            product.Description = response.Description;
+
+            _repo.DeleteProduct(product);
+
+            var categoryId = _repo.Categories
+                .Where(c => c.CategoryName == response.CategoryName)
+                .Select(c => c.CategoryId)
+                .FirstOrDefault();
+
+            ProductsCategory prodCat = _repo.ProductsCategories
+                .Where(p => p.ProductId == response.ProductId)
+                .FirstOrDefault();
+            
+            prodCat.ProductId = product.ProductId;
+            prodCat.CategoryId = categoryId;
+            _repo.DeleteProductCategory(prodCat);
             
             return RedirectToAction("Products");
         }

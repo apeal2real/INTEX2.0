@@ -1,0 +1,12 @@
+@model PCViewModel
+
+<div class="row">
+    <div class="col order_details_container">
+        <h1 class="text-center">Delete confirmation page</h1>
+        <p>Are you sure you want to delete the product <span class="fw-bold">@Model.Name</span> in the <span class="fw-bold">@Model.CategoryName</span>?</p>
+        <form method="post" asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@Model.ProductId">
+            <button class="btn btn-primary warning_btn">Delete</button>
+        </form>
+        <a class="btn btn-primary sub_btn" asp-controller="Admin" asp-action="Products">Cancel</a>
+    </div>
+</div>

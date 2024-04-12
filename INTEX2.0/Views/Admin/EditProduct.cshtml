@@ -1,11 +1,13 @@
 @model PCViewModel
 
 <div class="row text-center">
-    <h1 class="title">Add Product</h1>
+    <h1 class="title">Edit Product</h1>
 </div>
+
 <div class="row justify-content-center">
     <div class="col-md-8 form_box">
-        <form method="post" asp-controller="Admin" asp-action="AddProduct">
+        <form method="post" asp-controller="Admin" asp-action="EditProduct">
+            <input type="hidden" asp-for="@Model.ProductId">
             <div class="form-group">
                 <label asp-for="@Model.Name">Name:</label>
                 <input type="text" asp-for="@Model.Name" class="form-control" value="@Model.Name">
@@ -60,7 +62,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary main_btn">Add Product</button>
+            <button type="submit" class="btn btn-primary main_btn">Update Product</button>
         </form>
     </div>
 </div>

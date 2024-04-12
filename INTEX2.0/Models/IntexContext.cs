@@ -120,7 +120,7 @@ public partial class IntexContext : DbContext
 
         modelBuilder.Entity<ProductsCategory>(entity =>
         {
-            entity.HasKey(e => new { e.CategoryId, e.ProductId });
+            entity.HasKey(e => new { e.ProductId });
 
             entity.ToTable("Products_Categories");
 
