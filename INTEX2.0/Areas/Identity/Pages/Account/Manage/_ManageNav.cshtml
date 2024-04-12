@@ -12,6 +12,13 @@
     @* } *@
     <li class="nav-item link_box"><a class="mng_link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
     <li class="nav-item link_box"><a class="mng_link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
-    <a class="btn btn-primary sub_btn" asp-controller="Home" asp-action="Index">Go Home</a>
-    <a class="btn btn-primary warning_btn" style="margin-top: 1em;" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+    <div class="row">
+        <div class="col d-flex">
+            <a class="btn btn-primary sub_btn" style="margin-top: 1em; margin-right: 1em;" asp-controller="Home" asp-action="Index">Go Home</a>
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button type="submit" class="btn btn-primary warning_btn" style="margin-top: 1em;">Logout</button>
+            </form>
+        </div>
+    </div>
+    @* <a class="btn btn-primary warning_btn" style="margin-top: 1em;" asp-area="Identity" asp-page="/Account/Logout">Logout</a> *@
 </ul>
