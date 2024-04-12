@@ -26,7 +26,7 @@
                         
                         @* Create a new LineItem object for each product *@
                         <div class="col-md-8 d-flex flex-column align-items-center">
-                            <label asp-for="@Model[i].Rating">Rate @ViewBag.Products[i].Name (1 to 5)</label>
+                            <label asp-for="@Model[i].Rating">Rate <span class="fw-bold">@ViewBag.Products[i].Name</span> (1 to 5)</label>
                             <input required style="width: 5em" class="form-control" type="number" placeholder="1" step="1" value="1" asp-for="@Model[i].Rating">
                             <input type="hidden" asp-for="@Model[i].ProductId" value="@ViewBag.Products[i].ProductId">
                             @* <input type="hidden" asp-for="@Model.Qty" value="@((int)((Dictionary<int, int>)ViewBag.CartData)[p.ProductId])"> *@
