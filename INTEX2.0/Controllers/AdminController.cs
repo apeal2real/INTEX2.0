@@ -155,6 +155,13 @@ namespace INTEX2._0.Controllers
             return View(orderToDisplay);
         }
 
+        [HttpPost]
+        public IActionResult OrderDetails(Order orderToDelete)
+        {
+            _repo.RemoveOrder(orderToDelete);
+            return RedirectToAction("Orders");
+        }
+
         [HttpGet]
         public IActionResult UpdateUser(string id)
         {

@@ -1,13 +1,64 @@
 @{
     Layout = null; // Remove the shared layout
     Layout = "~/Views/Shared/_LoginLayout.cshtml"; // Assign a new layout
-    
-    if (true)
-    {
-        <partial name="_ConfirmationPartial" />
-    }
-    else
-    {
-        <partial name="_ReviewPartial" />
-    }
 }
+
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+
+@{
+    ViewBag.Title = "Confirmation";
+}
+
+@model Tuple<List<Products>, List<LineItem>>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="order_details_container">
+            <div class="row text-center">
+                @if (ViewBag.OrderFraud == 0)
+                {
+                    <h1 class="title">Order Confirmation</h1>
+                    <p class="product_subtitle text-center">Order number @ViewBag.OrderNum is confirmed.</p>
+                }
+                else
+                {
+                    <h1 class="title">Order Pending</h1>
+                    <p class="product_subtitle text-center">Order number @ViewBag.OrderNum is currently under review.</p>
+                    <p class="product_subtitle text-center">You will receive updates through your registered email</p>
+                }
+            </div>
+            <form method="post" asp-controller="Home" asp-action="SubmitLineItem">
+                @for (var i = 0; i < Model.Item1.Count; i++)
+                {
+                    LineItem line = new LineItem();
+                    Model.Item2.Add(line);
+                    <div class="row">
+                        @* Create a new LineItem object for each product *@
+                        <div class="col-md-8 d-flex flex-column align-items-center">
+                            <label asp-for="@Model.Item2[i].Rating">Rate <span class="fw-bold">@Model.Item1[i].Name</span> (1 to 5)</label>
+                            <input required style="width: 5em" class="form-control" type="number" placeholder="1" step="1" value="1" asp-for="@Model.Item2[i].Rating">
+                            <input type="hidden" asp-for="@Model.Item2[i].ProductId" value="@Model.Item1[i].ProductId">
+                            @* <input type="hidden" asp-for="@Model.Qty" value="@((int)((Dictionary<int, int>)ViewBag.CartData)[p.ProductId])"> *@
+                            @if (ViewBag.CartDict is Dictionary<int, int> cartData)
+                            {
+                                int quantity = cartData.ContainsKey(Model.Item1[i].ProductId) ? cartData[Model.Item1[i].ProductId] : 0; // Default to 0 if key doesn't exist
+
+                                <input type="hidden" asp-for="@Model.Item2[i].Qty" value="@quantity">
+                            }
+                            else
+                            {
+                                <input type="hidden" asp-for="@Model.Item2[i].Qty" value="0">
+                            }
+                            <input type="hidden" asp-for="@Model.Item2[i].TransactionId" value="@ViewBag.OrderNum">
+                        </div>
+                    </div>
+                }
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <button class="btn btn-primary main_btn" type="submit">Submit & Go Home</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
