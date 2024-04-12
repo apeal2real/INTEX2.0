@@ -289,6 +289,13 @@ namespace INTEX2._0.Controllers
             product.ShortDescription = response.ShortDescription;
             product.Description = response.Description;
 
+            var latestID = _repo.Products
+                .OrderByDescending(p => p.ProductId)
+                .FirstOrDefault()?.ProductId;
+
+            product.ProductId = (int)(latestID + 1);
+            
+
             _repo.AddProduct(product);
 
             var categoryId = _repo.Categories
@@ -394,37 +401,20 @@ namespace INTEX2._0.Controllers
         }
         
         [HttpPost]
-        public IActionResult DeleteProduct(PCViewModel response)
+        public IActionResult DeleteProductPost(int id)
         {
             Products product = _repo.Products
-                .Where(p => p.ProductId == response.ProductId)
+                .Where(p => p.ProductId == id)
                 .FirstOrDefault();
-            
-            product.Name = response.Name;
-            product.Year = response.Year;
-            product.NumParts = response.NumParts;
-            product.Price = response.Price;
-            product.ImgLink = response.ImgLink;
-            product.PrimaryColor = response.PrimaryColor;
-            product.SecondaryColor = response.SecondaryColor;
-            product.ShortDescription = response.ShortDescription;
-            product.Description = response.Description;
-
-            _repo.DeleteProduct(product);
-
-            var categoryId = _repo.Categories
-                .Where(c => c.CategoryName == response.CategoryName)
-                .Select(c => c.CategoryId)
-                .FirstOrDefault();
+           
 
             ProductsCategory prodCat = _repo.ProductsCategories
-                .Where(p => p.ProductId == response.ProductId)
+                .Where(p => p.ProductId == id)
                 .FirstOrDefault();
-            
-            prodCat.ProductId = product.ProductId;
-            prodCat.CategoryId = categoryId;
+
             _repo.DeleteProductCategory(prodCat);
-            
+            _repo.DeleteProduct(product);
+
             return RedirectToAction("Products");
         }
     }

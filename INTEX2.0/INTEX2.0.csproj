@@ -58,4 +58,13 @@
     <Content Include="fraudModel.onnx" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="INTEX.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MFALabW24.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
