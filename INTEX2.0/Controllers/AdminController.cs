@@ -73,7 +73,27 @@ namespace INTEX2._0.Controllers
                              join ur in _usersRepo.AspNetUserRoles on u.Id equals ur.UserId
                              join r in _usersRepo.AspNetRoles on ur.RoleId equals r.Id
                              where u.Id == id
-                             select new UpdateUserViewModel { UserName = u.UserName, RoleName = r.Name, UserID = u.Id, RoleID = r.Id }).FirstOrDefault();
+                             select new UpdateUserViewModel
+                             {
+                                 UserId = u.Id,
+                                 UserName = u.UserName,
+                                 NormalizedUserName = u.NormalizedUserName,
+                                 Email = u.Email,
+                                 NormalizedEmail = u.NormalizedEmail,
+                                 PasswordHash = u.PasswordHash,
+                                 SecurityStamp = u.SecurityStamp,
+                                 ConcurrencyStamp= u.ConcurrencyStamp,
+                                 PhoneNumber = u.PhoneNumber,
+                                 PhoneNumberConfirmed = u.PhoneNumberConfirmed,
+                                 TwoFactorEnabled = u.TwoFactorEnabled,
+                                 LockoutEnd = u.LockoutEnd,
+                                 LockoutEnabled = u.LockoutEnabled,
+                                 AccessFailedCount = u.AccessFailedCount,
+                                 RoleName = r.Name,
+                                 RoleID = ur.RoleId,
+                                 // NormalizedName = r.NormalizedName,
+                                 // RoleConcurrencyStamp = r.ConcurrencyStamp
+                             }).FirstOrDefault();
                             
             //var userData = usersQuery.ToList();
 
@@ -83,9 +103,35 @@ namespace INTEX2._0.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateUser(AspNetUser response)
+        public IActionResult UpdateUser(UpdateUserViewModel response)
         {
-            _usersRepo.UpdateUser(response); //add record to database
+            AspNetUser user = _usersRepo.AspNetUsers
+                .FirstOrDefault(u => u.Id == response.UserId);
+            user.Id = response.UserId;
+            user.UserName = response.UserName;
+            user.NormalizedUserName = response.NormalizedUserName;
+            user.Email = response.Email;
+            user.NormalizedEmail = response.NormalizedEmail;
+            user.EmailConfirmed = response.EmailConfirmed;
+            user.PasswordHash = response.PasswordHash;
+            user.SecurityStamp = response.SecurityStamp;
+            user.ConcurrencyStamp = response.ConcurrencyStamp;
+            user.PhoneNumber = response.PhoneNumber;
+            user.PhoneNumberConfirmed = response.PhoneNumberConfirmed;
+            user.TwoFactorEnabled = response.TwoFactorEnabled;
+            user.AccessFailedCount = response.AccessFailedCount;
+            
+            _usersRepo.UpdateUser(user); //add record to database
+            
+            // update user role table
+            AspNetUserRole userRole = _usersRepo.AspNetUserRoles
+                .FirstOrDefault(ur => ur.UserId == response.UserId);
+            
+            userRole.RoleId = response.RoleID;
+            userRole.UserId = response.UserId;
+
+            _usersRepo.UpdateUserRole(userRole);
+            
             return RedirectToAction("Users");
         }
 

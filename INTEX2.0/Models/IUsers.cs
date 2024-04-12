@@ -19,5 +19,6 @@ namespace INTEX2._0.Models
         public void RemoveUser(AspNetUser user);
         public void UpdateUser(AspNetUser user);
         public void AddUser(AspNetUser user);
+        public void UpdateUserRole(AspNetUserRole userRole);
     }
 }
