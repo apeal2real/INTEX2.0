@@ -349,3 +349,11 @@ a {
     width: 4.5rem;
     height: 4.5rem;
 }
+
+.product_input {
+    border-radius: 1rem;
+    border: 1px solid #E6E6E6;
+    text-align: center;
+    width: 3em;
+    margin-right: 2em;
+}

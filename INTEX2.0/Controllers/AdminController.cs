@@ -145,17 +145,6 @@ namespace INTEX2._0.Controllers
             ViewBag.Colors = _repo.Products.Select(p => p.PrimaryColor).Distinct();
             return View();
         }
-
-        //public IActionResult Orders()
-        //{
-        //    var fraudOrders = _repo.Orders
-        //        .Where(x => x.Fraud == 1)
-        //        .OrderByDescending(x => x.Date)
-        //        .Take(20)
-        //        .ToList();
-            
-        //    return View(fraudOrders);
-        //}
         
         public IActionResult OrderDetails(int id)
         {
@@ -192,10 +181,6 @@ namespace INTEX2._0.Controllers
                                  RoleName = r.Name,
                                  RoleID = ur.RoleId,
                              }).FirstOrDefault();
-                            
-            //var userData = usersQuery.ToList();
-
-            //ViewBag.Users = userData;
 
             return View(usersQuery);
         }
@@ -207,17 +192,6 @@ namespace INTEX2._0.Controllers
                 .FirstOrDefault(u => u.Id == response.UserId);
             user.Id = response.UserId;
             user.UserName = response.UserName;
-            // user.NormalizedUserName = response.NormalizedUserName;
-            // user.Email = response.Email;
-            // user.NormalizedEmail = response.NormalizedEmail;
-            // user.EmailConfirmed = response.EmailConfirmed;
-            // user.PasswordHash = response.PasswordHash;
-            // user.SecurityStamp = response.SecurityStamp;
-            // user.ConcurrencyStamp = response.ConcurrencyStamp;
-            // user.PhoneNumber = response.PhoneNumber;
-            // user.PhoneNumberConfirmed = response.PhoneNumberConfirmed;
-            // user.TwoFactorEnabled = response.TwoFactorEnabled;
-            // user.AccessFailedCount = response.AccessFailedCount;
             
             _usersRepo.UpdateUser(user); //add record to database
             
@@ -286,19 +260,6 @@ namespace INTEX2._0.Controllers
             _usersRepo.RemoveUser(deleted);
             return RedirectToAction("Users");
         }
-
-        // [HttpGet]
-        // public IActionResult AddEdit() //This action returns the UpdateUser page but doesn't populate it with any data
-        // {
-        //     return View("UpdateUser");
-        // }
-        //
-        // [HttpPost]
-        // public IActionResult AddEdit(AspNetUser response) //This Post method allows the user to add a task and saves it
-        // {
-        //     _usersRepo.AddUser(response); //add record to database
-        //     return RedirectToAction("Index");
-        // }
 
         [HttpGet]
         public IActionResult AddProduct()

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Linq;
+using INTEX2._0.Models.ViewModels;
 
 namespace INTEX2._0.Controllers
 {
@@ -73,6 +74,20 @@ namespace INTEX2._0.Controllers
         {
             var product = _repo.Products
                 .FirstOrDefault(x => x.ProductId == id);
+
+            var reviews = (from p in _repo.Products
+                join l in _repo.LineItems on p.ProductId equals l.ProductId
+                join o in _repo.Orders on l.TransactionId equals o.TransactionId
+                join c in _repo.Customers on o.CustomerId equals c.CustomerId
+                where p.ProductId == id
+                select new ReviewInfo()
+                {
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Review = l.Rating
+                }).Take(10);
+
+            ViewBag.Reviews = reviews;
             
             return View(product);
         }
