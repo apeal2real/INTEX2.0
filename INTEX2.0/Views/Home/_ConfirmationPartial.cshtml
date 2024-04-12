@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Confirmation";
 }
-<div class="container">
+@* <div class="container">
     <div class="row justify-content-center">
         <div class="order_details_container">
             <div class="row text-center">
@@ -13,14 +13,14 @@
             <form method="post" asp-controller="Home" asp-action="SubmitLineItem">
                 @for (var i = 0; i < ViewBag.Products.Count; i++)
                 {
-                    <div class="row">
+                    <div class="row"> *@
                         @* Create a new LineItem object for each product *@
-                        <div class="col-md-8 d-flex flex-column align-items-center">
+@*                         <div class="col-md-8 d-flex flex-column align-items-center">
                             <label asp-for="@Model[i].Rating">Rate <span class="fw-bold">@ViewBag.Products[i].Name</span> (1 to 5)</label>
                             <input required style="width: 5em" class="form-control" type="number" placeholder="1" step="1" value="1" asp-for="@Model[i].Rating">
-                            <input type="hidden" asp-for="@Model[i].ProductId" value="@ViewBag.Products[i].ProductId">
+                            <input type="hidden" asp-for="@Model[i].ProductId" value="@ViewBag.Products[i].ProductId"> *@
                             @* <input type="hidden" asp-for="@Model.Qty" value="@((int)((Dictionary<int, int>)ViewBag.CartData)[p.ProductId])"> *@
-                            @if (ViewBag.CartDict is Dictionary<int, int> cartData)
+    @*                         @if (ViewBag.CartDict is Dictionary<int, int> cartData)
                             {
                                 int quantity = cartData.ContainsKey(ViewBag.Products[i].ProductId) ? cartData[ViewBag.Products[i].ProductId] : 0; // Default to 0 if key doesn't exist
 
@@ -42,4 +42,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> *@
