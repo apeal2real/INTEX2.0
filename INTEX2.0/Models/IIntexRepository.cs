@@ -14,5 +14,11 @@
         public void AddOrder(Order order);
         public void AddLineItem(LineItem lineItem);
         public void AddCustomer(Customer customer);
+        public void AddProduct(Products product);
+        public void EditProduct(Products product);
+        public void DeleteProduct(Products product);
+        public void AddProductCategory(ProductsCategory prodCat);
+        public void EditProductCategory(ProductsCategory prodCat);
+        public void DeleteProductCategory(ProductsCategory prodCat);
     }
 }

@@ -305,5 +305,47 @@ namespace INTEX2._0.Controllers
         //     _usersRepo.AddUser(response); //add record to database
         //     return RedirectToAction("Index");
         // }
+
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            PCViewModel newProd = new PCViewModel();
+
+            var categories = _repo.Categories
+                .Select(c => c.CategoryName)
+                .Distinct();
+
+            ViewBag.Categories = categories;
+            
+            return View(newProd);
+        }
+        
+        [HttpPost]
+        public IActionResult AddProduct(PCViewModel response)
+        {
+            Products product = new Products();
+            product.Name = response.Name;
+            product.Year = response.Year;
+            product.NumParts = response.NumParts;
+            product.Price = response.Price;
+            product.ImgLink = response.ImgLink;
+            product.PrimaryColor = response.PrimaryColor;
+            product.SecondaryColor = response.SecondaryColor;
+            product.Description = response.Description;
+
+            _repo.AddProduct(product);
+
+            var categoryId = _repo.Categories
+                .Where(c => c.CategoryName == response.CategoryName)
+                .Select(c => c.CategoryId)
+                .FirstOrDefault();
+
+            ProductsCategory prodCat = new ProductsCategory();
+            prodCat.ProductId = product.ProductId;
+            prodCat.CategoryId = categoryId;
+            _repo.AddProductCategory(prodCat);
+            
+            return RedirectToAction("Products");
+        }
     }
 }
