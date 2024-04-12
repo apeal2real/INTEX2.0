@@ -124,6 +124,9 @@ public class Program
             string email2 = "william.turner@gmail.com";
             string password2 = "Willturn1234!";
 
+            string email3 = "Maryella@gmail.com";
+            string password3 = "Maryella1234!";
+
             if (await userManager.FindByEmailAsync(email) == null)
             {
                 var user = new IdentityUser();
@@ -144,6 +147,18 @@ public class Program
                 user.EmailConfirmed = true;
 
                 await userManager.CreateAsync(user, password2);
+
+                await userManager.AddToRoleAsync(user, "User");
+            }
+
+            if (await userManager.FindByEmailAsync(email3) == null)
+            {
+                var user = new IdentityUser();
+                user.UserName = email3;
+                user.Email = email3;
+                user.EmailConfirmed = true;
+
+                await userManager.CreateAsync(user, password3);
 
                 await userManager.AddToRoleAsync(user, "User");
             }

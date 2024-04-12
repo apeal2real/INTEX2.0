@@ -1,6 +1,7 @@
 @{
     ViewBag.Title = "BrickBlocks";
     var filteredProducts = Model.Where(p => p.ProductId == 23 || p.ProductId == 19 || p.ProductId == 21 || p.ProductId == 22).Take(4);
+    var maryellaRecommendations = Model.Where(p => p.ProductId == 19 || p.ProductId == 23 || p.ProductId == 12 || p.ProductId == 22).Take(4);
 }
 
 @using Microsoft.AspNetCore.Identity
@@ -46,10 +47,19 @@ else
             </div>
         </div>
         <div class="row justify-content-center">
-            <h1 class="title text-center">Top Products</h1>
-            @if (User.IsInRole("User"))
+            <h1 class="title text-center">Maryella's Recommendations</h1>
+            @if (User.Identity.Name == "Maryella@gmail.com")
             {
-                
+                @foreach (var product in maryellaRecommendations)
+                {
+                    <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id="@product.ProductId" style="text-decoration: none;">
+                        <div class="product_img_box">
+                            <img class="product_img" src="@product.ImgLink" />
+                        </div>
+                        <p class="product_name">@product.Name</p>
+                        <p class="product_price">$@product.Price.00</p>
+                    </a>
+                }
             }
             else
             @foreach (var product in filteredProducts)

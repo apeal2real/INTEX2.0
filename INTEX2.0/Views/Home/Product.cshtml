@@ -36,7 +36,7 @@
                 p.ProductId == recommendation.RecommendedId3);
 
                 <div class="row justify-content-center">
-                    <h1 class="title text-center">Top Products</h1>
+                    <h1 class="title text-center">Recommended Products</h1>
                         @foreach (var product in filteredProducts)
                         {
                             <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id="@product.ProductId" style="text-decoration: none;">
