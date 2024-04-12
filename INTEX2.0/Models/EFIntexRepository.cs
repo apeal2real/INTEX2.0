@@ -73,5 +73,10 @@ namespace INTEX2._0.Models
             _context.ProductsCategories.Remove(prodCat);
             _context.SaveChanges();
         }
+        public void RemoveOrder(Order order)
+        {
+            _context.Orders.Remove(order);
+            _context.SaveChanges();
+        }
     }
 }
