@@ -19,6 +19,7 @@ namespace INTEX2._0.Controllers
         public IActionResult Index()
         {
             var allProducts = _repo.Products.ToList();
+            ViewBag.Recommendations = _repo.ProductRecommendations.ToList();
             return View(allProducts);
         }
         public IActionResult Shop()
@@ -73,7 +74,12 @@ namespace INTEX2._0.Controllers
         {
             var product = _repo.Products
                 .FirstOrDefault(x => x.ProductId == id);
-            
+
+            ViewBag.ProductRecommendations = _repo.ProductRecommendations
+                .Where(x => x.ItemId == id)
+                .ToList();
+            ViewBag.Products = _repo.Products.ToList();
+
             return View(product);
         }
         

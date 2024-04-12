@@ -1,5 +1,5 @@
 @{
-    ViewBag.Title = "Product";
+    var recommendedIds = (List<INTEX2._0.Models.ProductRecommendation>)ViewBag.ProductRecommendations;
 }
 
 @model Products
@@ -26,21 +26,32 @@
             </form>
         </div>
     </div>
-    <div class="row flex-column">
-        <div class="col-md-10 text-center" style="margin-top: 2em;">
-            <button class="btn" onclick="toggleVisibility('descriptionSection', 'customerReviewsSection')">Description</button>
-            <button class="btn" onclick="toggleVisibility('customerReviewsSection', 'descriptionSection')">Customer Reviews</button>
-        </div>
-        <div class="col-md-10 product_btn" id="descriptionSection" hidden>
-            <p class="shop_text m-4" >@Model.Description</p>
-        </div>
-        <div class="col-md-10 product_btn" id="customerReviewsSection" hidden>
-            @* TODO: List reviews from LineItems table here *@
-            <p class="shop_text m-4">Reviews</p>
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 5em;">
+            @foreach (var recommendation in recommendedIds)
+            {
+                var filteredProducts = ((IEnumerable<Products>)ViewBag.Products)
+                .Where(p => p.ProductId == recommendation.RecommendedId1 ||
+                p.ProductId == recommendation.RecommendedId2 ||
+                p.ProductId == recommendation.RecommendedId3);
+
+                <div class="row justify-content-center">
+                    <h1 class="title text-center">Top Products</h1>
+                        @foreach (var product in filteredProducts)
+                        {
+                            <a class="product_box" asp-controller="Home" asp-action="Product" asp-route-id="@product.ProductId" style="text-decoration: none;">
+                                <div class="product_img_box">
+                                    <img class="product_img" src="@product.ImgLink" />
+                                </div>
+                                <p class="product_name">@product.Name</p>
+                                <p class="product_price">$@product.Price.00</p>
+                            </a>
+                        }
+                    }
+                </div>
+            }
         </div>
     </div>
-</div>
-
 <script>
     function toggleVisibility(showId, hideId) {
         var showElement = document.getElementById(showId);
