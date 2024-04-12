@@ -30,7 +30,7 @@ namespace INTEX2._0.Controllers
         }
 
         [HttpPost]
-        public IActionResult FilteredShop(int? categoryId, string? color)
+        public IActionResult FilteredShop(int? categoryId, string? color, int? numItems)
         {
             var productsQuery = from p in _repo.Products
                 join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
@@ -48,6 +48,12 @@ namespace INTEX2._0.Controllers
             }
 
             var productQueryCleaned = productsQuery.Select(x => x.Product).DistinctBy(x => x.ProductId);
+            
+            if (numItems.HasValue)
+            {
+                productQueryCleaned = productQueryCleaned.Take(numItems.Value);
+            }
+            
             var productData = productQueryCleaned.ToList();
             
             string? category = _repo.Categories
@@ -58,6 +64,7 @@ namespace INTEX2._0.Controllers
             ViewBag.Products = productData;
             ViewBag.Category = category;
             ViewBag.Color = color;
+            ViewBag.itemNum = numItems;
 
             return View();
         }
