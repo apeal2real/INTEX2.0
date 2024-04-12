@@ -91,6 +91,7 @@
                     <input type="hidden" asp-for="@Model.DayOfWeek" value="@DateTime.Now.DayOfWeek">
                     <input type="hidden" asp-for="@Model.CustomerId" value="@ViewBag.cId">
                     <input type="hidden" asp-for="@Model.Time" value="@DateTime.Now.Hour" >
+                    <input type="hidden" asp-for="@Model.Fraud" value="0" >
                 </div>
                 <button type="submit" class="btn btn-primary main_btn" style="margin-top: 1em;">Submit</button>
             </form>

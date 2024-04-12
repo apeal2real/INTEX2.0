@@ -36,12 +36,6 @@ public class Program
         //     googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
         // });
 
-        services.AddAuthentication().AddGoogle(googleOptions =>
-        {
-            googleOptions.ClientId = clientId /*configuration["Authentication:Google:ClientId2"]*/;
-            googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
-        });
-
         // Add services to the container.
         var connectionString2 = builder.Configuration.GetConnectionString("MyDatabaseConnection");
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
