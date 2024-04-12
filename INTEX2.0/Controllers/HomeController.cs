@@ -2,6 +2,8 @@ using INTEX2._0.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace INTEX2._0.Controllers
 {
@@ -16,11 +18,8 @@ namespace INTEX2._0.Controllers
 
         public IActionResult Index()
         {
-            Cart cart = new Cart();
-            ViewBag.Cart = cart;
-            
-            var products = _repo.Products.ToList();
-            return View(products);
+            var allProducts = _repo.Products.ToList();
+            return View(allProducts);
         }
         public IActionResult Shop()
         {
@@ -31,11 +30,11 @@ namespace INTEX2._0.Controllers
         }
 
         [HttpPost]
-        public IActionResult FilteredShop(int? categoryId, string? color)
+        public IActionResult FilteredShop(int? categoryId, string? color, int? numItems)
         {
             var productsQuery = from p in _repo.Products
                 join pc in _repo.ProductsCategories on p.ProductId equals pc.ProductId
-                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
+                                join c in _repo.Categories on pc.CategoryId equals c.CategoryId
                 select new { Product = p, Category = c };
 
             if (categoryId.HasValue)
@@ -49,6 +48,12 @@ namespace INTEX2._0.Controllers
             }
 
             var productQueryCleaned = productsQuery.Select(x => x.Product).DistinctBy(x => x.ProductId);
+            
+            if (numItems.HasValue)
+            {
+                productQueryCleaned = productQueryCleaned.Take(numItems.Value);
+            }
+            
             var productData = productQueryCleaned.ToList();
             
             string? category = _repo.Categories
@@ -59,6 +64,7 @@ namespace INTEX2._0.Controllers
             ViewBag.Products = productData;
             ViewBag.Category = category;
             ViewBag.Color = color;
+            ViewBag.itemNum = numItems;
 
             return View();
         }
@@ -81,7 +87,64 @@ namespace INTEX2._0.Controllers
         }
         public IActionResult OrderConfirm()
         {
+            string serializedData = TempData["CartData"] as string;
+
+            // Deserialize the JSON data back to a dictionary
+            Dictionary<int, int> cartData = JsonConvert.DeserializeObject<Dictionary<int, int>>(serializedData);
+            ViewBag.CartDict = cartData;
+
+            List<int> productIds = new List<int>();
+            foreach (var line in cartData)
+            {
+                productIds.Add(line.Key);
+            }
+
+            var products = _repo.Products
+                .Where(p => productIds.Contains(p.ProductId))
+                .ToList();
+
+            ViewBag.OrderNum = TempData["OrderNum"];
+            ViewBag.Products = products;
+            
             return View();
+        }
+        
+        [HttpPost]
+        public IActionResult SubmitLineItem(List<LineItem> lineItems)
+        {
+            foreach (var line in lineItems)
+            {
+                _repo.AddLineItem(line);
+            }
+            
+            return RedirectToAction("Index");
+        }
+        
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            string serializedTotal = TempData["CartTotal"] as string;
+            // Deserialize the JSON data back to a decimal
+            decimal total = JsonConvert.DeserializeObject<decimal>(serializedTotal);
+            int intTotal = (int)total;
+            ViewBag.CartTotal = intTotal;
+            
+            string username = User.Identity?.Name!;
+            var customer = _repo.Customers
+                .Where(c => c.Email == username)
+                .FirstOrDefault();
+
+            ViewBag.cId = customer.CustomerId;
+            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(Order order)
+        {
+            _repo.AddOrder(order);
+            TempData["OrderNum"] = order.TransactionId;
+            return RedirectToAction("OrderConfirm");
         }
     }
 }
