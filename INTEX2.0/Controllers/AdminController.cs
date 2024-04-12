@@ -23,8 +23,7 @@ namespace INTEX2._0.Controllers
         {
             _repo = temp;
             _usersRepo = usersRepo; // Assign IUsers dependency
-            _onnxModelPath = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "fraudModel.onnx");
-            System.IO.Path.Combine(hostEnvironment.ContentRootPath, "fraudModel.onnx");
+            _onnxModelPath = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "wwwroot", "fraudModel.onnx");
             _session = new InferenceSession(_onnxModelPath);
         }
 
