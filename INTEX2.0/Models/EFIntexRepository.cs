@@ -31,5 +31,11 @@ namespace INTEX2._0.Models
             _context.LineItems.Add(lineItem);
             _context.SaveChanges();
         }
+
+        public void AddCustomer(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+        }
     }
 }

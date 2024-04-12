@@ -4,7 +4,7 @@
     ViewBag.Title = "Orders";
 }
 
-@model List<Order>
+@model IEnumerable<INTEX2._0.Models.OrderPrediction>
 
 <div class="row">
     <h2 class="title text-center" style="margin-bottom: 1em;">Review Orders</h2>
@@ -26,15 +26,15 @@
             @foreach (var order in @Model)
             {
                 <tr class="text-center">
-                    <td>@order.TransactionId</td>
-                    <td>@order.CustomerId</td>
-                    <td>@order.Date</td>
-                    <td>$@order.Amount.00</td>
-                    @if (order.Fraud == 1)
+                    <td>@order.Orders.TransactionId</td>
+                    <td>@order.Orders.CustomerId</td>
+                    <td>@order.Orders.Date</td>
+                    <td>$@order.Orders.Amount.00</td>
+                        @if (@order.Prediction == "Fraud")
                     {
                         <td class="fraud_text">Potential Fraud</td>
                         <td>
-                            <a class="fraud_link" asp-controller="Admin" asp-action="OrderDetails" asp-route-id="@order.TransactionId">
+                            <a class="fraud_link" asp-controller="Admin" asp-action="OrderDetails" asp-route-id="@order.Orders.TransactionId">
                                 View Details
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F2705E" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -43,7 +43,7 @@
                             </a>
                         </td>
                     }
-                    @* else *@
+                    @* else
                     @* { *@
                     @*     <td>Safe</td> *@
                     @*     <td> *@

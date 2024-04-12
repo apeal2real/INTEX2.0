@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using Microsoft.ML.OnnxRuntime;
 
 public class Program
 {
@@ -35,6 +36,12 @@ public class Program
         //     googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
         // });
 
+        services.AddAuthentication().AddGoogle(googleOptions =>
+        {
+            googleOptions.ClientId = clientId /*configuration["Authentication:Google:ClientId2"]*/;
+            googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
+        });
+
         // Add services to the container.
         var connectionString2 = builder.Configuration.GetConnectionString("MyDatabaseConnection");
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -53,6 +60,17 @@ public class Program
 
         builder.Services.AddScoped<IIntexRepository, EFIntexRepository>();
         builder.Services.AddScoped<IUsers, EFUsers>();
+
+        //services.AddSingleton<InferenceSession>(
+        //    new InferenceSession(".\\fraudModel.onnx")
+        //);
+
+        //services.AddSingleton<InferenceSession>(provider =>
+        //{
+        //    // Provide the path to the ONNX model file
+        //    string modelPath = ".\\fraudModel.onnx";
+        //    return new InferenceSession(modelPath);
+        //});
 
         builder.Services.AddRazorPages();
         builder.Services.AddDistributedMemoryCache();
