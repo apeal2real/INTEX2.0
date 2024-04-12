@@ -106,6 +106,7 @@ namespace INTEX2._0.Controllers
         {
             return View();
         }
+        
         public IActionResult OrderConfirm()
         {
             string serializedData = TempData["CartData"] as string;
@@ -124,10 +125,19 @@ namespace INTEX2._0.Controllers
                 .Where(p => productIds.Contains(p.ProductId))
                 .ToList();
 
-            ViewBag.OrderNum = TempData["OrderNum"];
-            ViewBag.Products = products;
+            int orderId = (int)TempData["OrderNum"];
+            ViewBag.OrderNum = orderId;
+
+            var order = _repo.Orders
+                .Where(o => o.TransactionId == orderId)
+                .FirstOrDefault();
+
+            ViewBag.OrderFraud = order.Fraud;
+
+            List<LineItem> lineItems = new List<LineItem>();
+            var productLines = new Tuple<List<Products>, List<LineItem>>(products, lineItems);
             
-            return View();
+            return View(productLines);
         }
         
         [HttpPost]
