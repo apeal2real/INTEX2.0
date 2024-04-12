@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Drawing;
 using X.PagedList;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IWebHostEnvironment;
@@ -73,8 +74,8 @@ namespace INTEX2._0.Controllers
                 var input = new List<float>
                 {
                     (float)record.TransactionId,
-                    (float)record.CustomerId,
-                    (float)record.Time,    
+                    (float)(record.CustomerId ?? 0),
+                    (float)(record.Time ?? 0),    
                     // fix amount if it's null
                     (float)(record.Amount ?? 0),
                     // fix date
@@ -116,11 +117,13 @@ namespace INTEX2._0.Controllers
                 using (var results = _session.Run(inputs))
                 {
                     var prediction = results.FirstOrDefault(item => item.Name == "output_label")?.AsTensor<long>().ToArray();
+                    var fraudPrediction = prediction.FirstOrDefault();       
+                    record.Fraud = (int)fraudPrediction;
                     predictionResult = prediction != null && prediction.Length > 0 ? class_type_dict.GetValueOrDefault((int)prediction[0], "Unknown") : "Error in prediction";
                 }
                 predictions.Add(new OrderPrediction { Orders = record, Prediction = predictionResult }); // Adds the animal information and prediction for that animal to AnimalPrediction viewmodel
             }
-
+            
             return View(predictions);
         }
         public IActionResult Users()
@@ -153,10 +156,11 @@ namespace INTEX2._0.Controllers
         //        .OrderByDescending(x => x.Date)
         //        .Take(20)
         //        .ToList();
-            
+
         //    return View(fraudOrders);
         //}
-        
+
+        [HttpGet]
         public IActionResult OrderDetails(int id)
         {
             var orderToDisplay = _repo.Orders
@@ -164,6 +168,20 @@ namespace INTEX2._0.Controllers
                 .FirstOrDefault();
             
             return View(orderToDisplay);
+        }
+
+        [HttpPost]
+        public IActionResult OrderDetails(Order orderToDelete)
+        {
+            _repo.RemoveOrder(orderToDelete);
+            return RedirectToAction("Orders");
+        }
+
+        public IActionResult UpdateOrder(Order orderToUpdate)
+        {
+            orderToUpdate.Fraud = 0;
+            _repo.UpdateOrder(orderToUpdate);
+            return RedirectToAction("Orders");
         }
 
         public IActionResult EditProduct(int id)

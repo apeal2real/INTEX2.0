@@ -1,8 +1,55 @@
 @model Order
 
 <h1>Order Details Page</h1>
-<subtitle>Build out a form to contain the 
-    fraud order info and the chance to push the order through or reject the order</subtitle>
-<h1>Test if the model info comes through:</h1>
-<p>@Model.TransactionId</p>
-<p>@Model.Date</p>
+
+<form method="post">
+    <!-- Hidden field to send the UserId along with the form submission -->
+    <input type="hidden" asp-for="@Model.TransactionId" />
+
+    <div class="form-group">
+        <label asp-for="@Model.TransactionId">Transaction ID</label>
+        <input asp-for="@Model.TransactionId" class="form-control" />
+        <span asp-validation-for="@Model.TransactionId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.Date">Date</label>
+        <input asp-for="@Model.Date" class="form-control" />
+        <span asp-validation-for="@Model.Date" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.EntryMode">Entry Mode</label>
+        <input asp-for="@Model.EntryMode" class="form-control" />
+        <span asp-validation-for="@Model.EntryMode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.CountryOfTransaction">Country of Transaction</label>
+        <input asp-for="@Model.CountryOfTransaction" class="form-control" />
+        <span asp-validation-for="@Model.CountryOfTransaction" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.ShippingAddress">Shipping Address</label>
+        <input asp-for="@Model.ShippingAddress" class="form-control" />
+        <span asp-validation-for="@Model.ShippingAddress" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.TypeOfCard">Type of Card</label>
+        <input asp-for="@Model.TypeOfCard" class="form-control" />
+        <span asp-validation-for="@Model.TypeOfCard" class="text-danger"></span>
+    </div>
+    <br />
+    <br />
+    <p>Fraudulent Order</p>
+
+
+    <button type="submit" class="btn btn-primary main_btn">Decline</button>
+    <button type="submit" class="btn warning_btn" asp-controller="Admin" asp-action="UpdateOrder">Accept</button>
+    <a asp-action="Orders" class="btn btn-secondary sub_btn">Back</a>
+
+    <!-- Display validation errors if any -->
+    <div asp-validation-summary="All"></div>
+</form>

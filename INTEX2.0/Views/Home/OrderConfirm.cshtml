@@ -1,8 +1,9 @@
+@model Order
 @{
     Layout = null; // Remove the shared layout
     Layout = "~/Views/Shared/_LoginLayout.cshtml"; // Assign a new layout
     
-    if (true)
+    if (Model.Fraud == 0)
     {
         <partial name="_ConfirmationPartial" />
     }

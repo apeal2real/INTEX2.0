@@ -19,7 +19,9 @@
                 <th class="table_heading">Date</th>
                 <th class="table_heading">Amount</th>
                 <th class="table_heading">Fraud</th>
+                <th class="table_heading">Predicted Fraud</th>
                 <th class="table_heading">View Details</th>
+           
             </tr>
             </thead>
             <tbody>
@@ -30,6 +32,7 @@
                     <td>@order.Orders.CustomerId</td>
                     <td>@order.Orders.Date</td>
                     <td>$@order.Orders.Amount.00</td>
+                    <td>@order.Orders.Fraud</td>
                         @if (@order.Prediction == "Fraud")
                     {
                         <td class="fraud_text">Potential Fraud</td>

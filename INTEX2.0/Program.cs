@@ -19,21 +19,21 @@ public class Program
         var credential = new DefaultAzureCredential();
         var secretClient = new SecretClient(vaultUri: keyVaultUri, credential: credential);
         
-        // Retrieve secrets from Azure Key Vault
-        var clientId = (await secretClient.GetSecretAsync("GoogleClientID")).Value.Value;
-        var clientSecret = (await secretClient.GetSecretAsync("GoogleClientSecret")).Value.Value;
+        //// Retrieve secrets from Azure Key Vault
+        //var clientId = (await secretClient.GetSecretAsync("GoogleClientID")).Value.Value;
+        //var clientSecret = (await secretClient.GetSecretAsync("GoogleClientSecret")).Value.Value;
 
-        services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-        {
-            microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
-            microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
-        });
+        //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+        //{
+        //    microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+        //    microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+        //});
 
-         services.AddAuthentication().AddGoogle(googleOptions =>
-         {
-             googleOptions.ClientId = clientId /*configuration["Authentication:Google:ClientId2"]*/;
-             googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
-         });
+        // services.AddAuthentication().AddGoogle(googleOptions =>
+        // {
+        //     googleOptions.ClientId = clientId /*configuration["Authentication:Google:ClientId2"]*/;
+        //     googleOptions.ClientSecret = clientSecret /*configuration["Authentication:Google:ClientSecret2"]*/;
+        // });
 
         // Add services to the container.
         var connectionString2 = builder.Configuration.GetConnectionString("MyDatabaseConnection");

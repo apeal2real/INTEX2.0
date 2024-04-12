@@ -37,5 +37,15 @@ namespace INTEX2._0.Models
             _context.Customers.Add(customer);
             _context.SaveChanges();
         }
+        public void RemoveOrder(Order order)
+        {
+            _context.Orders.Remove(order);
+            _context.SaveChanges();
+        }
+        public void UpdateOrder(Order order)
+        {
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+        }
     }
 }
