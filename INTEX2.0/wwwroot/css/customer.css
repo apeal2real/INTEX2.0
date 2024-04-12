@@ -317,7 +317,6 @@ a {
 .footer {
     padding: 2em;
     background-color: #808080;
-    /*filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));*/
 }
 .footer_header {
     color: #FFF;
@@ -348,4 +347,12 @@ a {
 .icon_social {
     width: 4.5rem;
     height: 4.5rem;
+}
+
+.product_input {
+    border-radius: 1rem;
+    border: 1px solid #E6E6E6;
+    text-align: center;
+    width: 3em;
+    margin-right: 2em;
 }
