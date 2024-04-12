@@ -17,6 +17,7 @@
         public void AddProduct(Products product);
         public void EditProduct(Products product);
         public void DeleteProduct(Products product);
+        public void RemoveOrder(Order order);
         public void AddProductCategory(ProductsCategory prodCat);
         public void EditProductCategory(ProductsCategory prodCat);
         public void DeleteProductCategory(ProductsCategory prodCat);
