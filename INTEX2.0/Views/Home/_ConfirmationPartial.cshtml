@@ -1,30 +1,55 @@
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
 
-@model List<Products>
+@model List<LineItem>
+
 @{
     ViewBag.Title = "Confirmation";
 }
 <div class="container">
-    <div class="row justify-content-center">
-        <img src="~/img/intex_logo.png" alt="brick blocks logo" style="width: 50%; height: auto;"/>
-    </div>
     <div class="row justify-content-center">
         <div class="order_details_container">
             <div class="row text-center">
                 <h1 class="title">Order Confirmation</h1>
                 <p class="product_subtitle">Order number @ViewBag.OrderNum is confirmed.</p>
             </div>
-            @foreach (var p in Model)
-            {
-                <div class="row">
-                    <img src="@p.ImgLink" alt="@p.Name image">
-                    <h3>@p.Name</h3>
+            <form method="post" asp-controller="Home" asp-action="SubmitLineItem">
+                @* @foreach (var p in ViewBag.Products) *@
+                @for (var i = 0; i < ViewBag.Products.Count; i++)
+                {
+                    <div class="row">
+                        @* <div class="col-md-2"> *@
+                        @*     <img src="@p.ImgLink" alt="@p.Name image"> *@
+                        @* </div> *@
+                        @* <div class="col-md-2 align-items-center"> *@
+                        @*     <h3>@p.Name</h3> *@
+                        @* </div> *@
+                        
+                        @* Create a new LineItem object for each product *@
+                        <div class="col-md-8 d-flex flex-column align-items-center">
+                            <label asp-for="@Model[i].Rating">Rate @ViewBag.Products[i].Name (1 to 5)</label>
+                            <input required style="width: 5em" class="form-control" type="number" placeholder="1" step="1" value="1" asp-for="@Model[i].Rating">
+                            <input type="hidden" asp-for="@Model[i].ProductId" value="@ViewBag.Products[i].ProductId">
+                            @* <input type="hidden" asp-for="@Model.Qty" value="@((int)((Dictionary<int, int>)ViewBag.CartData)[p.ProductId])"> *@
+                            @if (ViewBag.CartDict is Dictionary<int, int> cartData)
+                            {
+                                int quantity = cartData.ContainsKey(ViewBag.Products[i].ProductId) ? cartData[ViewBag.Products[i].ProductId] : 0; // Default to 0 if key doesn't exist
+
+                                <input type="hidden" asp-for="@Model[i].Qty" value="@quantity">
+                            }
+                            else
+                            {
+                                <input type="hidden" asp-for="@Model[i].Qty" value="0">
+                            }
+                            <input type="hidden" asp-for="@Model[i].TransactionId" value="@ViewBag.OrderNum">
+                        </div>
+                    </div>
+                }
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <button class="btn btn-primary main_btn" type="submit">Submit & Go Home</button>
+                    </div>
                 </div>
-            }
+            </form>
         </div>
-        <form>
-            <p>Rate the product (1 to 5)</p>
-            <input placeholder="1" step="1" value="1"/>
-        </form>
     </div>
 </div>

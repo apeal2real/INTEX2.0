@@ -308,6 +308,11 @@ a {
     margin-bottom: 2em;
 }
 
+.line_item_img {
+    width: 12rem;
+    height: auto;
+}
+
 /* -------- FOOTER -------- */
 .footer {
     padding: 2em;

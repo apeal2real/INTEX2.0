@@ -97,8 +97,20 @@ namespace INTEX2._0.Controllers
                 .ToList();
 
             ViewBag.OrderNum = TempData["OrderNum"];
+            ViewBag.Products = products;
             
-            return View(products);
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult SubmitLineItem(List<LineItem> lineItems)
+        {
+            foreach (var line in lineItems)
+            {
+                _repo.AddLineItem(line);
+            }
+            
+            return RedirectToAction("Index");
         }
         
         [HttpGet]
