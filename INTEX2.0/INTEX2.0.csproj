@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="fraudModel.onnx" />
+    <None Remove="INTEX - Copy.sqlite" />
   </ItemGroup>
 
   <ItemGroup>
