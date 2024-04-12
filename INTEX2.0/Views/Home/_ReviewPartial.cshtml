@@ -2,13 +2,17 @@
     ViewBag.Title = "Review";
 }
 
-@model List<Products>
-
+@{
+    ViewBag.Title = "Confirmation";
+}
 <div class="container">
     <div class="row justify-content-center">
         <div class="order_details_container">
-            <h1 class="title text-center">Order Pending</h1>
-            <p>Order number # is being reviewed. You will be notified of it's status over email.</p>
+            <div class="row text-center">
+                <h1 class="title">Order Pending</h1>
+                <p class="product_subtitle">Order number @ViewBag.OrderNum is currently being reviewed.</p>
+                <p class="product_subtitle">You will be notified via email with updates on your order</p>
+            </div>
         </div>
     </div>
 </div>

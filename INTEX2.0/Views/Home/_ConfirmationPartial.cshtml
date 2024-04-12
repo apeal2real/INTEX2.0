@@ -1,7 +1,5 @@
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
 
-@model List<LineItem>
-
 @{
     ViewBag.Title = "Confirmation";
 }
@@ -13,17 +11,9 @@
                 <p class="product_subtitle">Order number @ViewBag.OrderNum is confirmed.</p>
             </div>
             <form method="post" asp-controller="Home" asp-action="SubmitLineItem">
-                @* @foreach (var p in ViewBag.Products) *@
                 @for (var i = 0; i < ViewBag.Products.Count; i++)
                 {
                     <div class="row">
-                        @* <div class="col-md-2"> *@
-                        @*     <img src="@p.ImgLink" alt="@p.Name image"> *@
-                        @* </div> *@
-                        @* <div class="col-md-2 align-items-center"> *@
-                        @*     <h3>@p.Name</h3> *@
-                        @* </div> *@
-                        
                         @* Create a new LineItem object for each product *@
                         <div class="col-md-8 d-flex flex-column align-items-center">
                             <label asp-for="@Model[i].Rating">Rate <span class="fw-bold">@ViewBag.Products[i].Name</span> (1 to 5)</label>
