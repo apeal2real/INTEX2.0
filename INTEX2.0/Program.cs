@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using Microsoft.ML.OnnxRuntime;
 
 public class Program
 {
@@ -23,11 +24,11 @@ public class Program
         var clientId = (await secretClient.GetSecretAsync("GoogleClientID")).Value.Value;
         var clientSecret = (await secretClient.GetSecretAsync("GoogleClientSecret")).Value.Value;
 
-        services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-        {
-            microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
-            microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
-        });
+        //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+        //{
+        //    microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+        //    microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+        //});
 
          services.AddAuthentication().AddGoogle(googleOptions =>
          {
@@ -53,6 +54,17 @@ public class Program
 
         builder.Services.AddScoped<IIntexRepository, EFIntexRepository>();
         builder.Services.AddScoped<IUsers, EFUsers>();
+
+        //services.AddSingleton<InferenceSession>(
+        //    new InferenceSession(".\\fraudModel.onnx")
+        //);
+
+        //services.AddSingleton<InferenceSession>(provider =>
+        //{
+        //    // Provide the path to the ONNX model file
+        //    string modelPath = ".\\fraudModel.onnx";
+        //    return new InferenceSession(modelPath);
+        //});
 
         builder.Services.AddRazorPages();
         builder.Services.AddDistributedMemoryCache();

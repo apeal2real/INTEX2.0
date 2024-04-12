@@ -28,6 +28,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.17.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
     <PackageReference Include="X.PagedList.Mvc" Version="8.0.7" />
   </ItemGroup>
@@ -46,6 +47,10 @@
     <AdditionalFiles Include="Areas\Cart\Pages\_ViewImports.cshtml" />
     <AdditionalFiles Include="Areas\Cart\Pages\_ViewStart.cshtml" />
     
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="fraudModel.onnx" />
   </ItemGroup>
 
 </Project>

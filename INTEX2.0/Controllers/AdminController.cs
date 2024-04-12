@@ -24,6 +24,7 @@ namespace INTEX2._0.Controllers
             _repo = temp;
             _usersRepo = usersRepo; // Assign IUsers dependency
             _onnxModelPath = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "fraudModel.onnx");
+            System.IO.Path.Combine(hostEnvironment.ContentRootPath, "fraudModel.onnx");
             _session = new InferenceSession(_onnxModelPath);
         }
 
@@ -73,8 +74,8 @@ namespace INTEX2._0.Controllers
                 var input = new List<float>
                 {
                     (float)record.TransactionId,
-                    (float)record.CustomerId,
-                    (float)record.Time,    
+                    (float)(record.CustomerId ?? 0),
+                    (float)(record.Time ?? 0),    
                     // fix amount if it's null
                     (float)(record.Amount ?? 0),
                     // fix date
