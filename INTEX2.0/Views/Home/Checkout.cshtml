@@ -1,0 +1,99 @@
+@model Order
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="order_details_container">
+            <h1 class="title text-center">Payment Info</h1>
+        <form method="post" asp-controller="Home" asp-action="Checkout">
+                <div class="form-group checkout_form">
+                    <label asp-for="@Model.Date">Date:</label>
+                    <input readonly asp-for="@Model.Date" value="@DateTime.Today.ToString("MM-dd-yyyy")" placeholder="@DateTime.Today.ToString("MM-dd-yyyy")" class="form-control">
+                </div>
+                <div class="form-group checkout_form">
+                    <label asp-for="@Model.Amount">Total:</label>
+                    <input readonly value="@ViewBag.CartTotal" placeholder="$@ViewBag.CartTotal.00" asp-for="@Model.Amount" class="form-control">
+                </div>
+                <div class="form-group checkout_form">
+                    <label asp-for="@Model.TypeOfTransaction">Type of Transaction:</label>
+                    <input readonly value="Online" type="text" asp-for="@Model.TypeOfTransaction" class="form-control">
+                </div>
+                <div class="form-group checkout_form">
+                    <label asp-for="@Model.TypeOfCard">Type of Card:</label>
+                    <select asp-for="@Model.TypeOfCard" class="form-control">
+                        <option value="" disabled selected>Select card type</option>
+                        <option value="Visa">Visa</option>
+                        <option value="Mastercard">Mastercard</option>
+                        <option value="American Express">American Express</option>
+                        <option value="Discover">Discover</option>
+                    </select>
+                    
+                </div>
+                <div class="form-group checkout_form">
+                    <label asp-for="@Model.EntryMode">Entry Mode:</label>
+                    <input readonly value="CVC" type="text" asp-for="@Model.EntryMode" class="form-control">
+                </div>
+                <div class="form-group checkout_form">
+                    <label asp-for="@Model.Bank">Bank:</label>
+                    <input type="text" asp-for="@Model.Bank" class="form-control">
+                </div>
+                <div class="form-group checkout_form">
+                    <label asp-for="@Model.CountryOfTransaction">Country of Transaction:</label>
+                    <select asp-for="@Model.CountryOfTransaction" class="form-control">
+                        <option value="" disabled selected>Select country</option>
+                        <option value="United States">United States</option>
+                        <option value="China">China</option>
+                        <option value="India">India</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Russia">Russia</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="South Korea">South Korea</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="Saudi Arabia">Saudi Arabia</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="Switzerland">Switzerland</option>
+                    </select>
+                </div>
+                <div class="form-group checkout_form">
+                    <label asp-for="@Model.ShippingAddress">Shipping Address (Country):</label>
+                    <select asp-for="@Model.ShippingAddress" class="form-control">
+                        <option value="" disabled selected>Select country</option>
+                        <option value="United States">United States</option>
+                        <option value="China">China</option>
+                        <option value="India">India</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Russia">Russia</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="South Korea">South Korea</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="Saudi Arabia">Saudi Arabia</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="Switzerland">Switzerland</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="hidden" asp-for="@Model.DayOfWeek" value="@DateTime.Now.DayOfWeek">
+                    <input type="hidden" asp-for="@Model.CustomerId" value="@ViewBag.cId">
+                    <input type="hidden" asp-for="@Model.Time" value="@DateTime.Now.Hour" >
+                </div>
+                <button type="submit" class="btn btn-primary main_btn" style="margin-top: 1em;">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
